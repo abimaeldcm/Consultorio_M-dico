@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class ServicoRepository : ICRUD<Servico>
+    public class ServicoRepository : ICRUDRepository<Servico>
     {
         private readonly ConsultorioDbContext _context;
 

@@ -1,3 +1,4 @@
+using Consultorio.Domain.Entity;
 using Consultorio.Infra.IoC;
 
 public class Program
@@ -7,7 +8,6 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
         builder.Services.AddControllers();
         builder.Services.AddInfrastructure(builder.Configuration);
 

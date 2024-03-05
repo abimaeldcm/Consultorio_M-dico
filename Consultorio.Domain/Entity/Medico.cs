@@ -2,9 +2,9 @@
 {
     public class Medico : Usuario
     {
-        public int IdEspecialidade { get; set; }        
         public string RegistroCRM { get; set; }
-        
+
+        public int IdEspecialidade { get; set; }        
         public Especialidade Especialidade { get; set; }
     }
 }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Consultorio.Application\Consultorio.Application.csproj" />
     <ProjectReference Include="..\Consultorio.Data\Consultorio.Infra.Data.csproj" />
   </ItemGroup>
 

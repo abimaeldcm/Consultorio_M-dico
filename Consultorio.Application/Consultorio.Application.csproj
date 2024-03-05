@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Service\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Consultorio.Data\Consultorio.Infra.Data.csproj" />
+    <ProjectReference Include="..\Consultorio.Domain\Consultorio.Domain.csproj" />
   </ItemGroup>
 
 </Project>

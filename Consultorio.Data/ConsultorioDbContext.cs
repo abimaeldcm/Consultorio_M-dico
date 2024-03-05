@@ -6,7 +6,7 @@ namespace Consultorio.Infra.Data
 {
     public class ConsultorioDbContext : DbContext
     {
-        public ConsultorioDbContext()
+        public ConsultorioDbContext(DbContextOptions<ConsultorioDbContext> options) : base(options)
         {
         }
 

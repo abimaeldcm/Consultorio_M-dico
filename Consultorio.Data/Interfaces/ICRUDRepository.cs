@@ -2,7 +2,7 @@
 
 namespace Consultorio.Infra.Data.Interfaces
 {
-    public interface ICRUD<T> where T : class
+    public interface ICRUDRepository<T> where T : class
     {
         Task<List<T>> BuscarTodos();
         Task<T> BuscarPorId(int id);

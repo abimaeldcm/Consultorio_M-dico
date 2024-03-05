@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class AtendimentoRepository : ICRUD<Atendimento>
+    public class AtendimentoRepository : ICRUDRepository<Atendimento>
     {
         //Buscar pr período
 
