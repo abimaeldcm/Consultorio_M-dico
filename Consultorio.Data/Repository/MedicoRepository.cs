@@ -8,6 +8,11 @@ namespace Consultorio.Infra.Data.Repository
     {
         private readonly ConsultorioDbContext _context;
 
+        public MedicoRepository(ConsultorioDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<Medico> BuscarPorId(int id)
         {
             return await _context.Medicos.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
@@ -39,11 +44,20 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<bool> Delete(int id)
         {
-            var pacienteDb = await BuscarPorId(id);
-            _context.Medicos.Remove(pacienteDb);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var pacienteDb = await BuscarPorId(id);
+                _context.Medicos.Remove(pacienteDb);
+                await _context.SaveChangesAsync();
 
-            return true;
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Erro ao realizar a deleção!");
+            }
+
         }
 
         public async Task<Medico> Editar(Medico editar)

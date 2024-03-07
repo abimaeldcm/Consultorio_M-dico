@@ -60,7 +60,8 @@ namespace Consultorio.Application.Service
             {
                 throw new Exception("Serviço não localizado");
             }
-            Servico servicoEditar = _mapper.Map<Servico>(buscarDb);
+            Servico servicoEditar = _mapper.Map<Servico>(editar);
+            servicoEditar.Id = id;
             Servico servicoDb = await _repository.Editar(servicoEditar);
             ServicoOutputDTO servicoMap = _mapper.Map<ServicoOutputDTO>(servicoDb);
             return servicoMap;

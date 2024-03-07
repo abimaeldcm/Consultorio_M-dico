@@ -59,7 +59,8 @@ namespace Consultorio.Application.Service
             {
                 throw new Exception("Paciente não localizado");
             }
-            Paciente pacienteEditar = _mapper.Map<Paciente>(buscarDb);
+            Paciente pacienteEditar = _mapper.Map<Paciente>(editar);
+            pacienteEditar.Id = id;
             Paciente pacienteDb = await _repository.Editar(pacienteEditar);
             PacienteOutputDTO pacienteMap = _mapper.Map<PacienteOutputDTO>(pacienteDb);
             return pacienteMap;

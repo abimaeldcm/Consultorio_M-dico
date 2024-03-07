@@ -21,11 +21,11 @@ namespace Consultorio.Infra.Data.Repository
         public async Task<List<Paciente>> BuscarPorTexto(string termoPesquisa)
         {
             return await _context.Pacientes
-                            .Where(m => EF.Functions.Like(m.Nome, $"%{termoPesquisa}%") || 
-                                EF.Functions.Like(m.Sobrenome, $"%{termoPesquisa}%") || 
+                            .Where(m => EF.Functions.Like(m.Nome, $"%{termoPesquisa}%") ||
+                                EF.Functions.Like(m.Sobrenome, $"%{termoPesquisa}%") ||
                                 EF.Functions.Like(m.Telefone, $"%{termoPesquisa}%") ||
                                 EF.Functions.Like(m.CPF, $"%{termoPesquisa}%") ||
-                                EF.Functions.Like(m.Endereco, $"%{termoPesquisa}%")) 
+                                EF.Functions.Like(m.Endereco, $"%{termoPesquisa}%"))
                             .ToListAsync();
         }
 
@@ -44,11 +44,20 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<bool> Delete(int id)
         {
-            var pacienteDb = await BuscarPorId(id);
-            _context.Pacientes.Remove(pacienteDb);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var pacienteDb = await BuscarPorId(id);
+                _context.Pacientes.Remove(pacienteDb);
+                await _context.SaveChangesAsync();
 
-            return true;
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Erro ao realizar a deleção!");
+            }
+
         }
 
         public async Task<Paciente> Editar(Paciente editar)

@@ -59,7 +59,8 @@ namespace Consultorio.Application.Service
             {
                 throw new Exception("Especialidade não localizado");
             }
-            Especialidade especialidadeEditar = _mapper.Map<Especialidade>(buscarDb);
+            Especialidade especialidadeEditar = _mapper.Map<Especialidade>(editar);
+            especialidadeEditar.Id = id;
             Especialidade especialidadeDb = await _repository.Editar(especialidadeEditar);
             EspecialidadeOutputDTO especialidadeMap = _mapper.Map<EspecialidadeOutputDTO>(especialidadeDb);
             return especialidadeMap;

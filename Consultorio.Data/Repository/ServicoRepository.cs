@@ -13,9 +13,14 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public Task<Servico> BuscarPorId(int id)
+        public async Task<Servico> BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            var servicoDb = await _context.Servicos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (servicoDb is null)
+            {
+                throw new Exception("Id Não existe no banco de dados.");
+            }
+            return servicoDb;
         }
 
         public async Task<List<Servico>> BuscarPorTexto(string termoPesquisa)
@@ -25,24 +30,40 @@ namespace Consultorio.Infra.Data.Repository
                 .ToListAsync();
         }
 
-        public Task<List<Servico>> BuscarTodos()
+        public async Task<List<Servico>> BuscarTodos()
         {
-            throw new NotImplementedException();
+            return await _context.Servicos.ToListAsync();
         }
 
-        public Task<Servico> Cadastrar(Servico cadastrar)
+        public async Task<Servico> Cadastrar(Servico cadastrar)
         {
-            throw new NotImplementedException();
+            await _context.Servicos.AddAsync(cadastrar);
+            await _context.SaveChangesAsync();
+
+            return cadastrar;
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var servicoDb = await BuscarPorId(id);
+                _context.Servicos.Remove(servicoDb);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
-        public Task<Servico> Editar(Servico editar)
+        public async Task<Servico> Editar(Servico editar)
         {
-            throw new NotImplementedException();
+            _context.Servicos.Update(editar);
+            await _context.SaveChangesAsync();
+            return editar;
         }
     }
 }

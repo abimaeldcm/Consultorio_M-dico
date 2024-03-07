@@ -1,12 +1,14 @@
 ﻿using Consultorio.Application.Interface;
 using Consultorio.Application.Mapping;
 using Consultorio.Application.Service;
+using Consultorio.Application.Validations;
 using Consultorio.Domain.Entity;
 using Consultorio.Domain.Entity.InputDTOs;
 using Consultorio.Domain.Entity.OutPutDTOs;
 using Consultorio.Infra.Data;
 using Consultorio.Infra.Data.Interfaces;
 using Consultorio.Infra.Data.Repository;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +45,9 @@ namespace Consultorio.Infra.IoC
             //Servico
             services.AddScoped<ICRUDService<ServicoOutputDTO,ServicoInputDTO>, ServicoService>();
             services.AddScoped<ICRUDRepository<Servico>, ServicoRepository>();
+
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EspecialidadeValidation>());
+
 
             return services;
 

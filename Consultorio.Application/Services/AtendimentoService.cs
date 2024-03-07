@@ -59,7 +59,9 @@ namespace Consultorio.Application.Service
             {
                 throw new Exception("Atendimento não localizado");
             }
-            Atendimento atendimentoEditar = _mapper.Map<Atendimento>(buscarDb);
+            
+            Atendimento atendimentoEditar = _mapper.Map<Atendimento>(editar);
+            atendimentoEditar.Id = id;
             Atendimento atendimentoDb = await _repository.Editar(atendimentoEditar);
             AtendimentoOutputDTO atendimentoMap = _mapper.Map<AtendimentoOutputDTO>(atendimentoDb);
             return atendimentoMap;

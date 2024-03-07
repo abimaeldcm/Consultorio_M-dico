@@ -13,29 +13,46 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public Task<Especialidade> BuscarPorId(int id)
+        public async Task<Especialidade> BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Especialidades.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public Task<List<Especialidade>> BuscarPorTexto(string name)
+        public async Task<List<Especialidade>> BuscarPorTexto(string termoPesquisa)
         {
-            throw new NotImplementedException();
+            return await _context.Especialidades
+                                .Where(m => EF.Functions.Like(m.EspecialidadeMedica, $"%{termoPesquisa}%"))
+                                .ToListAsync();
         }
 
-        public Task<List<Especialidade>> BuscarTodos()
+        public async Task<List<Especialidade>> BuscarTodos()
         {
-            throw new NotImplementedException();
+            return await _context.Especialidades.ToListAsync();
         }
 
-        public Task<Especialidade> Cadastrar(Especialidade cadastrar)
+        public async Task<Especialidade> Cadastrar(Especialidade cadastrar)
         {
-            throw new NotImplementedException();
+            await _context.Especialidades.AddAsync(cadastrar);
+            await _context.SaveChangesAsync();
+
+            return cadastrar;
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var especialidadeDb = await BuscarPorId(id);
+                _context.Especialidades.Remove(especialidadeDb);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Erro ao realizar a deleção!");
+            }
         }
 
         public async Task<Especialidade> Editar(Especialidade editar)
