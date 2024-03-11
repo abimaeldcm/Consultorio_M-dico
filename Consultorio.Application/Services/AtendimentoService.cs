@@ -53,15 +53,15 @@ namespace Consultorio.Application.Service
             var atendimentoDb_Include = await _repository.BuscarPorId(atendimentoMap.Id);
             var resultado = await _enviarEmail.Enviar(
                 atendimentoDb_Include.Paciente.Email,
-                $"Confirmação de Agendamento do Exame: {atendimentoDb_Include.Servico.Nome}",
-                $"Prezado(a), {atendimentoDb_Include.Paciente.Nome} \n " +
-                $"É com satisfação que informamos a confirmação do agendamento da sua consulta para o dia {atendimentoDb_Include.Inicio.Date} às {atendimentoDb_Include.Inicio.Hour}.\n " +
-                $"A consulta será realizada em nosso consultório localizado na Rua dos Bobos, Nº 0\n " +
-                $"Pedimos que chegue com pelo menos 15 minutos de antecedência para que possamos realizar o seu atendimento de forma pontual. Caso haja qualquer impedimento ou necessidade de reagendamento, pedimos a gentileza de entrar em contato conosco o mais breve possível.\n" +
-                $"Estamos à disposição para esclarecer qualquer dúvida que possa surgir. Agradecemos pela confiança em nossos serviços e estamos ansiosos para atendê-lo(a) em breve.\n" +
-                $"Atenciosamente,\n" +
-                $"Clínica Médica\n" +
-                $"[(86) 9 9011-2255]"
+                $"Confirmação de Agendamento do Exame: {atendimentoDb_Include.Servico.Nome}.",
+                $"Prezado(a), {atendimentoDb_Include.Paciente.Nome} <br> " +
+                $"É com satisfação que informamos a confirmação do agendamento da sua consulta para o dia {atendimentoDb_Include.Inicio.Date.ToString("dd/MM/yyyy")} às {atendimentoDb_Include.Inicio.ToString("HH:mm")}.<br> " +
+                $"A consulta será realizada em nosso consultório localizado na Rua dos Bobos, Nº 0 <br> " +
+                $"Pedimos que chegue com pelo menos 15 minutos de antecedência para que possamos realizar o seu atendimento de forma pontual. Caso haja qualquer impedimento ou necessidade de reagendamento, pedimos a gentileza de entrar em contato conosco o mais breve possível.<br>" +
+                $"Estamos à disposição para esclarecer qualquer dúvida que possa surgir. Agradecemos pela confiança em nossos serviços e estamos ansiosos para atendê-lo(a) em breve.<br> <br>" +
+                $"Atenciosamente, <br>" +
+                $"Clínica Médica <br>" +
+                $"(86) 9 9011-2255"
                 );
 
             return atendimentoMap;
