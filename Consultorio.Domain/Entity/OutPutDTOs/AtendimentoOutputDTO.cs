@@ -9,5 +9,9 @@
         public byte Convenio { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fim { get; set; }
+
+        public Paciente Paciente { get; set; }
+        public Servico Servico { get; set; }
+        public Medico Medico { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Consultorio.Application.Validations
         public EspecialidadeValidation()
         {
             RuleFor(e => e.EspecialidadeMedica)
-                .Length(100)
+                .MaximumLength(100)
                 .WithMessage("Especialidade com o nome muito grande");
         }
     }

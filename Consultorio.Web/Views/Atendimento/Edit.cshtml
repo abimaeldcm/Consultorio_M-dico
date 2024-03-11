@@ -1,0 +1,62 @@
+﻿@model Consultorio.Web.Models.Atendimento
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Atendimento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="IdPaciente" class="form-control" type="hidden" />
+                <span asp-validation-for="IdPaciente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Paciente.Nome" class="form-control" type="hidden" />
+                <span asp-validation-for="Paciente.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdServico" class="control-label">Serviço</label>
+                <select asp-for="IdServico" asp-items="@ViewBag.ServiceId" class="form-control"></select>
+                <span asp-validation-for="IdServico" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdMedico" class="control-label"></label>
+                <select asp-for="IdMedico" asp-items="@ViewBag.MedicoId" class="form-control"></select>
+                <span asp-validation-for="IdMedico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Convenio" class="control-label">Convenio</label>
+                <select asp-for="Convenio" class="form-control">
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
+                </select>
+                <span asp-validation-for="Convenio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Inicio" class="control-label"></label>
+                <input asp-for="Inicio" class="form-control" />
+                <span asp-validation-for="Inicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fim" class="control-label"></label>
+                <input asp-for="Fim" class="form-control" />
+                <span asp-validation-for="Fim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

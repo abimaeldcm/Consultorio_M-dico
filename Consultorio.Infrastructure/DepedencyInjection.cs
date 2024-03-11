@@ -1,4 +1,5 @@
-﻿using Consultorio.Application.Interface;
+﻿using Consultorio.Application.Email;
+using Consultorio.Application.Interface;
 using Consultorio.Application.Mapping;
 using Consultorio.Application.Service;
 using Consultorio.Application.Validations;
@@ -46,7 +47,11 @@ namespace Consultorio.Infra.IoC
             services.AddScoped<ICRUDService<ServicoOutputDTO,ServicoInputDTO>, ServicoService>();
             services.AddScoped<ICRUDRepository<Servico>, ServicoRepository>();
 
+            services.AddScoped<ICRUDRepository<Servico>, ServicoRepository>();
+
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EspecialidadeValidation>());
+
+            services.AddScoped<IEnviarEmail, EnviarEmail>();
 
 
             return services;

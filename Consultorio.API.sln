@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.API", "Consultorio.API\Consultorio.API.csproj", "{FE136C58-C8D7-40B9-95ED-3D77733C1EC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.API", "Consultorio.API\Consultorio.API.csproj", "{FE136C58-C8D7-40B9-95ED-3D77733C1EC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.Infra.Data", "Consultorio.Data\Consultorio.Infra.Data.csproj", "{186E49E1-6605-4E51-9E64-354BBACFF5C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Infra.Data", "Consultorio.Data\Consultorio.Infra.Data.csproj", "{186E49E1-6605-4E51-9E64-354BBACFF5C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.Infra.IoC", "Consultorio.Infrastructure\Consultorio.Infra.IoC.csproj", "{92F8E450-085A-4319-BA29-9184D9B05D25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Infra.IoC", "Consultorio.Infrastructure\Consultorio.Infra.IoC.csproj", "{92F8E450-085A-4319-BA29-9184D9B05D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.Domain", "Consultorio.Domain\Consultorio.Domain.csproj", "{B00FC51C-D213-4FFE-817D-5264DB0B36BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Domain", "Consultorio.Domain\Consultorio.Domain.csproj", "{B00FC51C-D213-4FFE-817D-5264DB0B36BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.Application", "Consultorio.Application\Consultorio.Application.csproj", "{E6FA9D88-584E-4A6B-818C-902A3F59335D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Application", "Consultorio.Application\Consultorio.Application.csproj", "{E6FA9D88-584E-4A6B-818C-902A3F59335D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.Web", "Consultorio.Web\Consultorio.Web.csproj", "{C03CCC83-E8D9-425C-A08A-86149241D3F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E6FA9D88-584E-4A6B-818C-902A3F59335D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6FA9D88-584E-4A6B-818C-902A3F59335D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6FA9D88-584E-4A6B-818C-902A3F59335D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03CCC83-E8D9-425C-A08A-86149241D3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03CCC83-E8D9-425C-A08A-86149241D3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03CCC83-E8D9-425C-A08A-86149241D3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03CCC83-E8D9-425C-A08A-86149241D3F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

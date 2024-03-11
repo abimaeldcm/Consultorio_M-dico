@@ -2,7 +2,7 @@
 {
     public class Paciente : Usuario
     {
-        public decimal? Altura { get; set; }
-        public decimal? Peso { get; set; }
+        public double? Altura { get; set; }
+        public double? Peso { get; set; }
     }
 }

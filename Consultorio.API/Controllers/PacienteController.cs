@@ -20,31 +20,41 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<PacienteOutputDTO>> BuscarTodos()
+        public async Task<ActionResult<List<PacienteOutputDTO>>> BuscarTodos()
         {
             return await _service.BuscarTodos();
         }
 
         [HttpGet("{id}")]
-        public async Task<PacienteOutputDTO> BuscarPorId(int id)
+        public async Task<ActionResult<PacienteOutputDTO>> BuscarPorId(int id)
         {
             return await _service.BuscarPorId(id);
         }
 
         [HttpPost]
-        public async Task<PacienteOutputDTO> Criar([FromBody] PacienteInputDTO cadastrar)
+        public async Task<ActionResult<PacienteOutputDTO>> Criar([FromBody] PacienteInputDTO cadastrar)
         {
+            var result = _validator.Validate(cadastrar);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
             return await _service.Cadastrar(cadastrar);
         }
 
-        [HttpPut("{id}")]
-        public async Task<PacienteOutputDTO> Editar(int id, [FromBody] PacienteInputDTO editar)
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<PacienteOutputDTO>> Editar(int id, [FromBody] PacienteInputDTO editar)
         {
+            var result = _validator.Validate(editar);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
             return await _service.Editar(id, editar);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<bool> Delete(int id)
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<bool>> Delete(int id)
         {
             return await _service.Delete(id);
         }

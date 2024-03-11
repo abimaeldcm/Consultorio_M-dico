@@ -17,7 +17,7 @@ namespace Consultorio.Infra.Data.Configurations
             builder.Property(x => x.Endereco).IsRequired().HasMaxLength(200);
 
             builder.HasData(
-                    new Paciente { Id = 1, Nome = "Maria da Silva", Sobrenome = "da Silva", DataNascimento = new DateTime(1990, 07, 15), Telefone = "869988776655", Email = "maria.silva@email.com", CPF = "12345678901", TipoSanguineo = ETipoSanguineo.APositivo, Endereco = "Rua das Flores, Nº 10", Altura = 1.75, Peso = 70 },
+                    new Paciente { Id = 1, Nome = "Maria da Silva", Sobrenome = "da Silva", DataNascimento = new DateTime(1990, 07, 15), Telefone = "869988776655", Email = "maria.silva@email.com", CPF = "12345678901", TipoSanguineo = ETipoSanguineo.APositivo, Endereco = "Rua das Flores, Nº 10", Altura = 1.36, Peso = 70 },
                     new Paciente { Id = 2, Nome = "José Santos", Sobrenome = "Santos", DataNascimento = new DateTime(1985, 05, 20), Telefone = "869977665544", Email = "jose.santos@email.com", CPF = "23456789012", TipoSanguineo = ETipoSanguineo.BNegativo, Endereco = "Av. Central, Nº 50", Altura = 1.80, Peso = 85 },
                     new Paciente { Id = 3, Nome = "Ana Souza", Sobrenome = "Souza", DataNascimento = new DateTime(1993, 09, 10), Telefone = "869966554433", Email = "ana.souza@email.com", CPF = "34567890123", TipoSanguineo = ETipoSanguineo.ABNegativo, Endereco = "Rua dos Pássaros, Nº 25", Altura = 1.65, Peso = 60 },
                     new Paciente { Id = 4, Nome = "Carlos Oliveira", Sobrenome = "Oliveira", DataNascimento = new DateTime(1980, 03, 05), Telefone = "869955443322", Email = "carlos.oliveira@email.com", CPF = "45678901234", TipoSanguineo = ETipoSanguineo.OPositivo, Endereco = "Av. Brasil, Nº 100", Altura = 1.70, Peso = 75 },

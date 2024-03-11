@@ -17,7 +17,12 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<Atendimento> BuscarPorId(int id)
         {
-            return await _context.Atendimentos.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
+            return await _context.Atendimentos
+                .Include(x => x.Paciente)
+                .Include(x => x.Medico)
+                .Include(x => x.Servico)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<List<Atendimento>> BuscarPorTexto(string termoPesquisa)
@@ -27,7 +32,11 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<List<Atendimento>> BuscarTodos()
         {
-            return await _context.Atendimentos.ToListAsync();
+            return await _context.Atendimentos
+                .Include(x => x.Paciente)
+                .Include(x => x.Medico)
+                .Include(x => x.Servico)
+                .ToListAsync();
         }
 
         public async Task<Atendimento> Cadastrar(Atendimento cadastrar)

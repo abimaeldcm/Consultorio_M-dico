@@ -27,7 +27,7 @@ namespace Consultorio.API.Controllers
             return Ok(await _service.BuscarTodos());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<AtendimentoOutputDTO>> BuscarPorId(int id)
         {
             return Ok (await _service.BuscarPorId(id));
@@ -44,7 +44,7 @@ namespace Consultorio.API.Controllers
             return Ok(await _service.Cadastrar(cadastrar));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult<AtendimentoOutputDTO>> Editar(int id, [FromBody] AtendimentoInputDTO editar)
         {
 
