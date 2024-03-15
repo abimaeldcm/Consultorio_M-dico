@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Consultorio.Application.Validations
 {
-    public class MedicoValidation : AbstractValidator<MedicoInputDTO>
+    public class MedicoValidation : AbstractValidator<DoctorInputDTO>
     {
         public MedicoValidation()
         {

@@ -1,6 +1,6 @@
-﻿namespace Consultorio.Domain.Entity
+﻿namespace Consultorio.Domain.Entity.OutPutDTOs
 {
-    public class Especialidade
+    public class SpecialityOutputDTO
     {
         public int Id { get; set; }
         public string EspecialidadeMedica { get; set; }

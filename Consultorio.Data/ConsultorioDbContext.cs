@@ -10,11 +10,11 @@ namespace Consultorio.Infra.Data
         {
         }
 
-        public DbSet<Atendimento> Atendimentos { get; set; }
-        public DbSet<Especialidade> Especialidades { get; set; }
-        public DbSet<Medico> Medicos { get; set; }
-        public DbSet<Paciente> Pacientes { get; set; }
-        public DbSet<Servico> Servicos { get; set; }
+        public DbSet<Consult> Consults { get; set; }
+        public DbSet<Specialty> Specialty { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<ServiceEntity> Services { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

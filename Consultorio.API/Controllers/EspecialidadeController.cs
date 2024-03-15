@@ -10,29 +10,29 @@ namespace Consultorio.API.Controllers
     [ApiController]
     public class EspecialidadeController : ControllerBase
     {
-        private readonly ICRUDService<EspecialidadeOutputDTO, EspecialidadeInputDTO> _service;
-        private readonly IValidator<EspecialidadeInputDTO> _validator;
+        private readonly ICRUDService<SpecialityOutputDTO, SpecialityInputDTO> _service;
+        private readonly IValidator<SpecialityInputDTO> _validator;
 
-        public EspecialidadeController(ICRUDService<EspecialidadeOutputDTO, EspecialidadeInputDTO> service, IValidator<EspecialidadeInputDTO> validator)
+        public EspecialidadeController(ICRUDService<SpecialityOutputDTO, SpecialityInputDTO> service, IValidator<SpecialityInputDTO> validator)
         {
             _service = service;
             _validator = validator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<EspecialidadeOutputDTO>> BuscarTodos()
+        public async Task<ActionResult<SpecialityOutputDTO>> BuscarTodos()
         {
             return Ok(await _service.BuscarTodos());
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<EspecialidadeOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<SpecialityOutputDTO>> BuscarPorId(int id)
         {
             return Ok(await _service.BuscarPorId(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<EspecialidadeOutputDTO>> Criar([FromBody] EspecialidadeInputDTO cadastrar)
+        public async Task<ActionResult<SpecialityOutputDTO>> Criar([FromBody] SpecialityInputDTO cadastrar)
         {
             var result = _validator.Validate(cadastrar);
             if (!result.IsValid)
@@ -43,7 +43,7 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<EspecialidadeOutputDTO>> Editar(int id, [FromBody] EspecialidadeInputDTO editar)
+        public async Task<ActionResult<SpecialityOutputDTO>> Editar(int id, [FromBody] SpecialityInputDTO editar)
         {
             var result = _validator.Validate(editar);
             if (!result.IsValid)

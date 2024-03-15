@@ -7,7 +7,7 @@ using Consultorio.Infra.Data.Interfaces;
 
 namespace Consultorio.Application.Service
 {
-    public class PacienteService : ICRUDService<PacienteOutputDTO, PacienteInputDTO>
+    public class PacienteService : ICRUDService<PatientOutputDTO, PatientInputDTO>
     {
         private readonly ICRUDRepository<Paciente> _repository;
         private readonly IMapper _mapper;
@@ -18,32 +18,32 @@ namespace Consultorio.Application.Service
             _mapper = mapper;
         }
 
-        public async Task<PacienteOutputDTO> BuscarPorId(int id)
+        public async Task<PatientOutputDTO> BuscarPorId(int id)
         {
             Paciente pacienteDb = await _repository.BuscarPorId(id);
-            PacienteOutputDTO pacienteMap = _mapper.Map<PacienteOutputDTO>(pacienteDb);
+            PatientOutputDTO pacienteMap = _mapper.Map<PatientOutputDTO>(pacienteDb);
             return pacienteMap;
         }
 
-        public async Task<List<PacienteOutputDTO>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<PatientOutputDTO>> BuscarPorTexto(string termoPesquisa)
         {
             List<Paciente> pacienteDb = await _repository.BuscarPorTexto(termoPesquisa);
-            List<PacienteOutputDTO> pacienteMap = _mapper.Map<List<PacienteOutputDTO>>(pacienteDb);
+            List<PatientOutputDTO> pacienteMap = _mapper.Map<List<PatientOutputDTO>>(pacienteDb);
             return pacienteMap;
         }
 
-        public async Task<List<PacienteOutputDTO>> BuscarTodos()
+        public async Task<List<PatientOutputDTO>> BuscarTodos()
         {
             List<Paciente> pacienteDb = await _repository.BuscarTodos();
-            List<PacienteOutputDTO> pacienteMap = _mapper.Map<List<PacienteOutputDTO>>(pacienteDb);
+            List<PatientOutputDTO> pacienteMap = _mapper.Map<List<PatientOutputDTO>>(pacienteDb);
             return pacienteMap;
         }
 
-        public async Task<PacienteOutputDTO> Cadastrar(PacienteInputDTO cadastrar)
+        public async Task<PatientOutputDTO> Cadastrar(PatientInputDTO cadastrar)
         {
             Paciente pacienteCadastro = _mapper.Map<Paciente>(cadastrar);
             Paciente pacienteDb = await _repository.Cadastrar(pacienteCadastro);
-            PacienteOutputDTO pacienteMap = _mapper.Map<PacienteOutputDTO>(pacienteDb);
+            PatientOutputDTO pacienteMap = _mapper.Map<PatientOutputDTO>(pacienteDb);
             return pacienteMap;
         }
 
@@ -52,7 +52,7 @@ namespace Consultorio.Application.Service
             return await _repository.Delete(id);
         }
 
-        public async Task<PacienteOutputDTO> Editar(int id, PacienteInputDTO editar)
+        public async Task<PatientOutputDTO> Editar(int id, PatientInputDTO editar)
         {
             Paciente buscarDb = await _repository.BuscarPorId(id);
             if (buscarDb == null)
@@ -62,7 +62,7 @@ namespace Consultorio.Application.Service
             Paciente pacienteEditar = _mapper.Map<Paciente>(editar);
             pacienteEditar.Id = id;
             Paciente pacienteDb = await _repository.Editar(pacienteEditar);
-            PacienteOutputDTO pacienteMap = _mapper.Map<PacienteOutputDTO>(pacienteDb);
+            PatientOutputDTO pacienteMap = _mapper.Map<PatientOutputDTO>(pacienteDb);
             return pacienteMap;
         }
 

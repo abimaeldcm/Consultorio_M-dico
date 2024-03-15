@@ -11,29 +11,29 @@ namespace Consultorio.API.Controllers
     [ApiController]
     public class MedicoController : ControllerBase
     {
-        private readonly ICRUDService<MedicoOutputDTO, MedicoInputDTO> _service;
-        private readonly IValidator<MedicoInputDTO> _validator;
+        private readonly ICRUDService<DoctorOutputDTO, DoctorInputDTO> _service;
+        private readonly IValidator<DoctorInputDTO> _validator;
 
-        public MedicoController(ICRUDService<MedicoOutputDTO, MedicoInputDTO> service, IValidator<MedicoInputDTO> validator)
+        public MedicoController(ICRUDService<DoctorOutputDTO, DoctorInputDTO> service, IValidator<DoctorInputDTO> validator)
         {
             _service = service;
             _validator = validator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MedicoOutputDTO>>> BuscarTodos()
+        public async Task<ActionResult<List<DoctorOutputDTO>>> BuscarTodos()
         {
             return Ok(await _service.BuscarTodos());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MedicoOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<DoctorOutputDTO>> BuscarPorId(int id)
         {
             return await _service.BuscarPorId(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<MedicoOutputDTO>> Criar([FromBody] MedicoInputDTO cadastrar)
+        public async Task<ActionResult<DoctorOutputDTO>> Criar([FromBody] DoctorInputDTO cadastrar)
         {
             var result = _validator.Validate(cadastrar);
             if (!result.IsValid)
@@ -44,7 +44,7 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<MedicoOutputDTO>> Editar(int id, [FromBody] MedicoInputDTO editar)
+        public async Task<ActionResult<DoctorOutputDTO>> Editar(int id, [FromBody] DoctorInputDTO editar)
         {
             var result = _validator.Validate(editar);
             if (!result.IsValid)

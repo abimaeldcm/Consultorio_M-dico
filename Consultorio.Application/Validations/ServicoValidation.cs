@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Consultorio.Application.Validations
 {
-    public class ServicoValidation : AbstractValidator<ServicoInputDTO>
+    public class ServicoValidation : AbstractValidator<ServiceInputDTO>
     {
         public ServicoValidation()
         {

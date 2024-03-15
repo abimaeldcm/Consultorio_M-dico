@@ -10,29 +10,29 @@ namespace Consultorio.API.Controllers
     [ApiController]
     public class PacienteController : ControllerBase
     {
-        private readonly ICRUDService<PacienteOutputDTO, PacienteInputDTO> _service;
-        private readonly IValidator<PacienteInputDTO> _validator;
+        private readonly ICRUDService<PatientOutputDTO, PatientInputDTO> _service;
+        private readonly IValidator<PatientInputDTO> _validator;
 
-        public PacienteController(ICRUDService<PacienteOutputDTO, PacienteInputDTO> service, IValidator<PacienteInputDTO> validator)
+        public PacienteController(ICRUDService<PatientOutputDTO, PatientInputDTO> service, IValidator<PatientInputDTO> validator)
         {
             _service = service;
             _validator = validator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PacienteOutputDTO>>> BuscarTodos()
+        public async Task<ActionResult<List<PatientOutputDTO>>> BuscarTodos()
         {
             return await _service.BuscarTodos();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PacienteOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<PatientOutputDTO>> BuscarPorId(int id)
         {
             return await _service.BuscarPorId(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<PacienteOutputDTO>> Criar([FromBody] PacienteInputDTO cadastrar)
+        public async Task<ActionResult<PatientOutputDTO>> Criar([FromBody] PatientInputDTO cadastrar)
         {
             var result = _validator.Validate(cadastrar);
             if (!result.IsValid)
@@ -43,7 +43,7 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<PacienteOutputDTO>> Editar(int id, [FromBody] PacienteInputDTO editar)
+        public async Task<ActionResult<PatientOutputDTO>> Editar(int id, [FromBody] PatientInputDTO editar)
         {
             var result = _validator.Validate(editar);
             if (!result.IsValid)

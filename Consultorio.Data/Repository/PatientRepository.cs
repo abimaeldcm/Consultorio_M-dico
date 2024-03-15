@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class PacienteRepository : ICRUDRepository<Paciente>
+    public class PatientRepository : ICRUDRepository<Paciente>
     {
         private readonly ConsultorioDbContext _context;
 
-        public PacienteRepository(ConsultorioDbContext context)
+        public PatientRepository(ConsultorioDbContext context)
         {
             _context = context;
         }

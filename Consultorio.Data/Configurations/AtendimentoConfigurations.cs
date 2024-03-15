@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Consultorio.Infra.Data.Configurations
 {
-    internal class AtendimentoConfigurations : IEntityTypeConfiguration<Atendimento>
+    internal class AtendimentoConfigurations : IEntityTypeConfiguration<Consult>
     {
-        public void Configure(EntityTypeBuilder<Atendimento> builder)
+        public void Configure(EntityTypeBuilder<Consult> builder)
         {
             builder.HasKey(x => x.Id);
 

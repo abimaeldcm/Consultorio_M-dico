@@ -7,43 +7,43 @@ using Consultorio.Infra.Data.Interfaces;
 
 namespace Consultorio.Application.Service
 {
-    public class ServicoService : ICRUDService<ServicoOutputDTO, ServicoInputDTO>
+    public class ServicoService : ICRUDService<ServiceOutputDTO, ServiceInputDTO>
     {
-        private readonly ICRUDRepository<Servico> _repository;
+        private readonly ICRUDRepository<ServiceEntity> _repository;
         private readonly IMapper _mapper;
 
-        public ServicoService(ICRUDRepository<Servico> repository, IMapper mapper)
+        public ServicoService(ICRUDRepository<ServiceEntity> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<ServicoOutputDTO> BuscarPorId(int id)
+        public async Task<ServiceOutputDTO> BuscarPorId(int id)
         {
-            Servico servicoDb = await _repository.BuscarPorId(id);
-            ServicoOutputDTO servicoMap = _mapper.Map<ServicoOutputDTO>(servicoDb);
+            ServiceEntity servicoDb = await _repository.BuscarPorId(id);
+            ServiceOutputDTO servicoMap = _mapper.Map<ServiceOutputDTO>(servicoDb);
             return servicoMap;
         }
 
-        public async Task<List<ServicoOutputDTO>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<ServiceOutputDTO>> BuscarPorTexto(string termoPesquisa)
         {
-            List<Servico> servicoDb = await _repository.BuscarPorTexto(termoPesquisa);
-            List<ServicoOutputDTO> servicoMap = _mapper.Map<List<ServicoOutputDTO>>(servicoDb);
+            List<ServiceEntity> servicoDb = await _repository.BuscarPorTexto(termoPesquisa);
+            List<ServiceOutputDTO> servicoMap = _mapper.Map<List<ServiceOutputDTO>>(servicoDb);
             return servicoMap;
         }
 
-        public async Task<List<ServicoOutputDTO>> BuscarTodos()
+        public async Task<List<ServiceOutputDTO>> BuscarTodos()
         {
-            List<Servico> servicoDb = await _repository.BuscarTodos();
-            List<ServicoOutputDTO> servicoMap = _mapper.Map<List<ServicoOutputDTO>>(servicoDb);
+            List<ServiceEntity> servicoDb = await _repository.BuscarTodos();
+            List<ServiceOutputDTO> servicoMap = _mapper.Map<List<ServiceOutputDTO>>(servicoDb);
             return servicoMap;
         }
 
-        public async Task<ServicoOutputDTO> Cadastrar(ServicoInputDTO cadastrar)
+        public async Task<ServiceOutputDTO> Cadastrar(ServiceInputDTO cadastrar)
         {
-            Servico servicoCadastro = _mapper.Map<Servico>(cadastrar);
-            Servico servicoDb = await _repository.Cadastrar(servicoCadastro);
-            ServicoOutputDTO servicoMap = _mapper.Map<ServicoOutputDTO>(servicoDb);
+            ServiceEntity servicoCadastro = _mapper.Map<ServiceEntity>(cadastrar);
+            ServiceEntity servicoDb = await _repository.Cadastrar(servicoCadastro);
+            ServiceOutputDTO servicoMap = _mapper.Map<ServiceOutputDTO>(servicoDb);
             return servicoMap;
         }
 
@@ -52,18 +52,18 @@ namespace Consultorio.Application.Service
             return await _repository.Delete(id);
         }
 
-        public async Task<ServicoOutputDTO> Editar(int id, ServicoInputDTO editar)
+        public async Task<ServiceOutputDTO> Editar(int id, ServiceInputDTO editar)
         {
 
-            Servico buscarDb = await _repository.BuscarPorId(id);
+            ServiceEntity buscarDb = await _repository.BuscarPorId(id);
             if (buscarDb == null)
             {
                 throw new Exception("Serviço não localizado");
             }
-            Servico servicoEditar = _mapper.Map<Servico>(editar);
+            ServiceEntity servicoEditar = _mapper.Map<ServiceEntity>(editar);
             servicoEditar.Id = id;
-            Servico servicoDb = await _repository.Editar(servicoEditar);
-            ServicoOutputDTO servicoMap = _mapper.Map<ServicoOutputDTO>(servicoDb);
+            ServiceEntity servicoDb = await _repository.Editar(servicoEditar);
+            ServiceOutputDTO servicoMap = _mapper.Map<ServiceOutputDTO>(servicoDb);
             return servicoMap;
         }
     }

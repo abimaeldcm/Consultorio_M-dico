@@ -9,14 +9,14 @@ using Consultorio.Infra.Data.Interfaces;
 
 namespace Consultorio.Application.Service
 {
-    public class AtendimentoService : ICRUDService<AtendimentoOutputDTO, AtendimentoInputDTO>
+    public class AtendimentoService : ICRUDService<ConsultOutputDTO, ConsultInputDTO>
     {
-        private readonly ICRUDRepository<Atendimento> _repository;
+        private readonly ICRUDRepository<Consult> _repository;
         private readonly ICRUDRepository<Paciente> _pacienteRepository;
         private readonly IMapper _mapper;
         private readonly IEnviarEmail _enviarEmail;
 
-        public AtendimentoService(ICRUDRepository<Atendimento> repository, ICRUDRepository<Paciente> pacienteRepository, IMapper mapper, IEnviarEmail enviarEmail)
+        public AtendimentoService(ICRUDRepository<Consult> repository, ICRUDRepository<Paciente> pacienteRepository, IMapper mapper, IEnviarEmail enviarEmail)
         {
             _repository = repository;
             _pacienteRepository = pacienteRepository;
@@ -24,33 +24,33 @@ namespace Consultorio.Application.Service
             _enviarEmail = enviarEmail;
         }
 
-        public async Task<AtendimentoOutputDTO> BuscarPorId(int id)
+        public async Task<ConsultOutputDTO> BuscarPorId(int id)
         {
-            Atendimento atendimentoDb = await _repository.BuscarPorId(id);
-            AtendimentoOutputDTO AtendimentoMap = _mapper.Map<AtendimentoOutputDTO>(atendimentoDb);
+            Consult atendimentoDb = await _repository.BuscarPorId(id);
+            ConsultOutputDTO AtendimentoMap = _mapper.Map<ConsultOutputDTO>(atendimentoDb);
             return AtendimentoMap;
         }
 
-        public async Task<List<AtendimentoOutputDTO>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<ConsultOutputDTO>> BuscarPorTexto(string termoPesquisa)
         {
-            List<Atendimento> atendimentoDb = await _repository.BuscarPorTexto(termoPesquisa);
-            List<AtendimentoOutputDTO> atendimentoMap = _mapper.Map<List<AtendimentoOutputDTO>>(atendimentoDb);
+            List<Consult> atendimentoDb = await _repository.BuscarPorTexto(termoPesquisa);
+            List<ConsultOutputDTO> atendimentoMap = _mapper.Map<List<ConsultOutputDTO>>(atendimentoDb);
             return atendimentoMap;
         }
 
-        public async Task<List<AtendimentoOutputDTO>> BuscarTodos()
+        public async Task<List<ConsultOutputDTO>> BuscarTodos()
         {
-            List<Atendimento> atendimentoDb = await _repository.BuscarTodos();
-            List<AtendimentoOutputDTO> atendimentoMap = _mapper.Map<List<AtendimentoOutputDTO>>(atendimentoDb);
+            List<Consult> atendimentoDb = await _repository.BuscarTodos();
+            List<ConsultOutputDTO> atendimentoMap = _mapper.Map<List<ConsultOutputDTO>>(atendimentoDb);
             return atendimentoMap;
 
         }
 
-        public async Task<AtendimentoOutputDTO> Cadastrar(AtendimentoInputDTO cadastrar)
+        public async Task<ConsultOutputDTO> Cadastrar(ConsultInputDTO cadastrar)
         {
-            Atendimento atendimentoCadastro = _mapper.Map<Atendimento>(cadastrar);
-            Atendimento atendimentoDb = await _repository.Cadastrar(atendimentoCadastro);
-            AtendimentoOutputDTO atendimentoMap = _mapper.Map<AtendimentoOutputDTO>(atendimentoDb);
+            Consult atendimentoCadastro = _mapper.Map<Consult>(cadastrar);
+            Consult atendimentoDb = await _repository.Cadastrar(atendimentoCadastro);
+            ConsultOutputDTO atendimentoMap = _mapper.Map<ConsultOutputDTO>(atendimentoDb);
             var atendimentoDb_Include = await _repository.BuscarPorId(atendimentoMap.Id);
             var resultado = await _enviarEmail.Enviar(
                 atendimentoDb_Include.Paciente.Email,
@@ -89,18 +89,18 @@ namespace Consultorio.Application.Service
             return result;
         }
 
-        public async Task<AtendimentoOutputDTO> Editar(int id, AtendimentoInputDTO editar)
+        public async Task<ConsultOutputDTO> Editar(int id, ConsultInputDTO editar)
         {
-            Atendimento buscarDb = await _repository.BuscarPorId(id);
+            Consult buscarDb = await _repository.BuscarPorId(id);
             if (buscarDb == null)
             {
                 throw new Exception("Atendimento não localizado");
             }
 
-            Atendimento atendimentoEditar = _mapper.Map<Atendimento>(editar);
+            Consult atendimentoEditar = _mapper.Map<Consult>(editar);
             atendimentoEditar.Id = id;
-            Atendimento atendimentoDb = await _repository.Editar(atendimentoEditar);
-            AtendimentoOutputDTO atendimentoMap = _mapper.Map<AtendimentoOutputDTO>(atendimentoDb);
+            Consult atendimentoDb = await _repository.Editar(atendimentoEditar);
+            ConsultOutputDTO atendimentoMap = _mapper.Map<ConsultOutputDTO>(atendimentoDb);
             return atendimentoMap;
         }
     }

@@ -7,7 +7,7 @@ using Consultorio.Infra.Data.Interfaces;
 
 namespace Consultorio.Application.Service
 {
-    public class MedicoService : ICRUDService<MedicoOutputDTO, MedicoInputDTO>
+    public class MedicoService : ICRUDService<DoctorOutputDTO, DoctorInputDTO>
     {
         private readonly ICRUDRepository<Medico> _repository;
         private readonly IMapper _mapper;
@@ -18,32 +18,32 @@ namespace Consultorio.Application.Service
             _mapper = mapper;
         }
 
-        public async Task<MedicoOutputDTO> BuscarPorId(int id)
+        public async Task<DoctorOutputDTO> BuscarPorId(int id)
         {
             Medico medicoDb = await _repository.BuscarPorId(id);
-            MedicoOutputDTO medicoMap = _mapper.Map<MedicoOutputDTO>(medicoDb);
+            DoctorOutputDTO medicoMap = _mapper.Map<DoctorOutputDTO>(medicoDb);
             return medicoMap;
         }
 
-        public async Task<List<MedicoOutputDTO>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<DoctorOutputDTO>> BuscarPorTexto(string termoPesquisa)
         {
             List<Medico> medicoDb = await _repository.BuscarPorTexto(termoPesquisa);
-            List<MedicoOutputDTO> medicoMap = _mapper.Map<List<MedicoOutputDTO>>(medicoDb);
+            List<DoctorOutputDTO> medicoMap = _mapper.Map<List<DoctorOutputDTO>>(medicoDb);
             return medicoMap;
         }
 
-        public async Task<List<MedicoOutputDTO>> BuscarTodos()
+        public async Task<List<DoctorOutputDTO>> BuscarTodos()
         {
             List<Medico> medicoDb = await _repository.BuscarTodos();
-            List<MedicoOutputDTO> medicoMap = _mapper.Map<List<MedicoOutputDTO>>(medicoDb);
+            List<DoctorOutputDTO> medicoMap = _mapper.Map<List<DoctorOutputDTO>>(medicoDb);
             return medicoMap;
         }
 
-        public async Task<MedicoOutputDTO> Cadastrar(MedicoInputDTO cadastrar)
+        public async Task<DoctorOutputDTO> Cadastrar(DoctorInputDTO cadastrar)
         {
             Medico MedicoCadastro = _mapper.Map<Medico>(cadastrar);
             Medico medicoDb = await _repository.Cadastrar(MedicoCadastro);
-            MedicoOutputDTO medicoMap = _mapper.Map<MedicoOutputDTO>(medicoDb);
+            DoctorOutputDTO medicoMap = _mapper.Map<DoctorOutputDTO>(medicoDb);
             return medicoMap;
         }
 
@@ -52,7 +52,7 @@ namespace Consultorio.Application.Service
             return await _repository.Delete(id);
         }
 
-        public async Task<MedicoOutputDTO> Editar(int id, MedicoInputDTO editar)
+        public async Task<DoctorOutputDTO> Editar(int id, DoctorInputDTO editar)
         {
             Medico buscarDb = await _repository.BuscarPorId(id);
             if (buscarDb == null)
@@ -62,7 +62,7 @@ namespace Consultorio.Application.Service
             Medico medicoEditar = _mapper.Map<Medico>(editar);
             medicoEditar.Id = id;
             Medico medicoDb = await _repository.Editar(medicoEditar);
-            MedicoOutputDTO medicoMap = _mapper.Map<MedicoOutputDTO>(medicoDb);
+            DoctorOutputDTO medicoMap = _mapper.Map<DoctorOutputDTO>(medicoDb);
             return medicoMap;
         }
     }

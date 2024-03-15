@@ -9,20 +9,20 @@ namespace Consultorio.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<AtendimentoInputDTO, Atendimento>();
-            CreateMap<Atendimento, AtendimentoOutputDTO>();
+            CreateMap<ConsultInputDTO, Consult>();
+            CreateMap<Consult, ConsultOutputDTO>();
 
-            CreateMap<EspecialidadeInputDTO, Especialidade>();
-            CreateMap<Especialidade, EspecialidadeOutputDTO>();
+            CreateMap<SpecialityInputDTO, Specialty>();
+            CreateMap<Specialty, SpecialityOutputDTO>();
 
-            CreateMap<MedicoInputDTO, Medico>();
-            CreateMap<Medico, MedicoOutputDTO>();
+            CreateMap<DoctorInputDTO, Medico>();
+            CreateMap<Medico, DoctorOutputDTO>();
 
-            CreateMap<PacienteInputDTO, Paciente>();
-            CreateMap<Paciente, PacienteOutputDTO>();
+            CreateMap<PatientInputDTO, Paciente>();
+            CreateMap<Paciente, PatientOutputDTO>();
 
-            CreateMap<ServicoInputDTO, Servico>();
-            CreateMap<Servico, ServicoOutputDTO>();
+            CreateMap<ServiceInputDTO, ServiceEntity>();
+            CreateMap<ServiceEntity, ServiceOutputDTO>();
             
         }
     }

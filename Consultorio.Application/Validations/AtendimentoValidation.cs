@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Consultorio.Application.Validations
 {
-    public class AtendimentoValidation : AbstractValidator<AtendimentoInputDTO>
+    public class AtendimentoValidation : AbstractValidator<ConsultInputDTO>
     {
         public AtendimentoValidation()
         {

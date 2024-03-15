@@ -7,43 +7,43 @@ using Consultorio.Infra.Data.Interfaces;
 
 namespace Consultorio.Application.Service
 {
-    public class EspecialidadeService : ICRUDService<EspecialidadeOutputDTO, EspecialidadeInputDTO>
+    public class EspecialidadeService : ICRUDService<SpecialityOutputDTO, SpecialityInputDTO>
     {
-        private readonly ICRUDRepository<Especialidade> _repository;
+        private readonly ICRUDRepository<Specialty> _repository;
         private readonly IMapper _mapper;
 
-        public EspecialidadeService(ICRUDRepository<Especialidade> repository, IMapper mapper)
+        public EspecialidadeService(ICRUDRepository<Specialty> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<EspecialidadeOutputDTO> BuscarPorId(int id)
+        public async Task<SpecialityOutputDTO> BuscarPorId(int id)
         {
-            Especialidade EspecialidadeDb = await _repository.BuscarPorId(id);
-            EspecialidadeOutputDTO EspecialidadeMap = _mapper.Map<EspecialidadeOutputDTO>(EspecialidadeDb);
+            Specialty EspecialidadeDb = await _repository.BuscarPorId(id);
+            SpecialityOutputDTO EspecialidadeMap = _mapper.Map<SpecialityOutputDTO>(EspecialidadeDb);
             return EspecialidadeMap;
         }
 
-        public async Task<List<EspecialidadeOutputDTO>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<SpecialityOutputDTO>> BuscarPorTexto(string termoPesquisa)
         {
-            List<Especialidade> EspecialidadeDb = await _repository.BuscarPorTexto(termoPesquisa);
-            List<EspecialidadeOutputDTO> EspecialidadeMap = _mapper.Map<List<EspecialidadeOutputDTO>>(EspecialidadeDb);
+            List<Specialty> EspecialidadeDb = await _repository.BuscarPorTexto(termoPesquisa);
+            List<SpecialityOutputDTO> EspecialidadeMap = _mapper.Map<List<SpecialityOutputDTO>>(EspecialidadeDb);
             return EspecialidadeMap;
         }
 
-        public async Task<List<EspecialidadeOutputDTO>> BuscarTodos()
+        public async Task<List<SpecialityOutputDTO>> BuscarTodos()
         {
-            List<Especialidade> EspecialidadeDb = await _repository.BuscarTodos();
-            List<EspecialidadeOutputDTO> EspecialidadeMap = _mapper.Map<List<EspecialidadeOutputDTO>>(EspecialidadeDb);
+            List<Specialty> EspecialidadeDb = await _repository.BuscarTodos();
+            List<SpecialityOutputDTO> EspecialidadeMap = _mapper.Map<List<SpecialityOutputDTO>>(EspecialidadeDb);
             return EspecialidadeMap;
         }
 
-        public async Task<EspecialidadeOutputDTO> Cadastrar(EspecialidadeInputDTO cadastrar)
+        public async Task<SpecialityOutputDTO> Cadastrar(SpecialityInputDTO cadastrar)
         {
-            Especialidade EspecialidadeCadastro = _mapper.Map<Especialidade>(cadastrar);
-            Especialidade EspecialidadeDb = await _repository.Cadastrar(EspecialidadeCadastro);
-            EspecialidadeOutputDTO EspecialidadeMap = _mapper.Map<EspecialidadeOutputDTO>(EspecialidadeDb);
+            Specialty EspecialidadeCadastro = _mapper.Map<Specialty>(cadastrar);
+            Specialty EspecialidadeDb = await _repository.Cadastrar(EspecialidadeCadastro);
+            SpecialityOutputDTO EspecialidadeMap = _mapper.Map<SpecialityOutputDTO>(EspecialidadeDb);
             return EspecialidadeMap;
         }
 
@@ -52,17 +52,17 @@ namespace Consultorio.Application.Service
             return await _repository.Delete(id);
         }
 
-        public async Task<EspecialidadeOutputDTO> Editar(int id, EspecialidadeInputDTO editar)
+        public async Task<SpecialityOutputDTO> Editar(int id, SpecialityInputDTO editar)
         {
-            Especialidade buscarDb = await _repository.BuscarPorId(id);
+            Specialty buscarDb = await _repository.BuscarPorId(id);
             if (buscarDb == null)
             {
                 throw new Exception("Especialidade não localizado");
             }
-            Especialidade especialidadeEditar = _mapper.Map<Especialidade>(editar);
+            Specialty especialidadeEditar = _mapper.Map<Specialty>(editar);
             especialidadeEditar.Id = id;
-            Especialidade especialidadeDb = await _repository.Editar(especialidadeEditar);
-            EspecialidadeOutputDTO especialidadeMap = _mapper.Map<EspecialidadeOutputDTO>(especialidadeDb);
+            Specialty especialidadeDb = await _repository.Editar(especialidadeEditar);
+            SpecialityOutputDTO especialidadeMap = _mapper.Map<SpecialityOutputDTO>(especialidadeDb);
             return especialidadeMap;
         }
     }

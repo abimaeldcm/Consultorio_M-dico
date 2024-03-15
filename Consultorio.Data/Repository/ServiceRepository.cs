@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class ServicoRepository : ICRUDRepository<Servico>
+    public class ServiceRepository : ICRUDRepository<ServiceEntity>
     {
         private readonly ConsultorioDbContext _context;
 
-        public ServicoRepository(ConsultorioDbContext context)
+        public ServiceRepository(ConsultorioDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Servico> BuscarPorId(int id)
+        public async Task<ServiceEntity> BuscarPorId(int id)
         {
             var servicoDb = await _context.Servicos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             if (servicoDb is null)
@@ -23,19 +23,19 @@ namespace Consultorio.Infra.Data.Repository
             return servicoDb;
         }
 
-        public async Task<List<Servico>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<ServiceEntity>> BuscarPorTexto(string termoPesquisa)
         {
             return await _context.Servicos
                 .Where(m => EF.Functions.Like(m.Nome, $"%{termoPesquisa}%") || EF.Functions.Like(m.Descricao, $"%{termoPesquisa}%"))
                 .ToListAsync();
         }
 
-        public async Task<List<Servico>> BuscarTodos()
+        public async Task<List<ServiceEntity>> BuscarTodos()
         {
             return await _context.Servicos.ToListAsync();
         }
 
-        public async Task<Servico> Cadastrar(Servico cadastrar)
+        public async Task<ServiceEntity> Cadastrar(ServiceEntity cadastrar)
         {
             await _context.Servicos.AddAsync(cadastrar);
             await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace Consultorio.Infra.Data.Repository
             }
         }
 
-        public async Task<Servico> Editar(Servico editar)
+        public async Task<ServiceEntity> Editar(ServiceEntity editar)
         {
             _context.Servicos.Update(editar);
             await _context.SaveChangesAsync();

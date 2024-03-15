@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class EspecialidadeRepository : ICRUDRepository<Especialidade>
+    public class EspecialidadeRepository : ICRUDRepository<Specialty>
     {
         private readonly ConsultorioDbContext _context;
 
@@ -13,24 +13,24 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<Especialidade> BuscarPorId(int id)
+        public async Task<Specialty> BuscarPorId(int id)
         {
             return await _context.Especialidades.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<List<Especialidade>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<Specialty>> BuscarPorTexto(string termoPesquisa)
         {
             return await _context.Especialidades
                                 .Where(m => EF.Functions.Like(m.EspecialidadeMedica, $"%{termoPesquisa}%"))
                                 .ToListAsync();
         }
 
-        public async Task<List<Especialidade>> BuscarTodos()
+        public async Task<List<Specialty>> BuscarTodos()
         {
             return await _context.Especialidades.ToListAsync();
         }
 
-        public async Task<Especialidade> Cadastrar(Especialidade cadastrar)
+        public async Task<Specialty> Cadastrar(Specialty cadastrar)
         {
             await _context.Especialidades.AddAsync(cadastrar);
             await _context.SaveChangesAsync();
@@ -55,7 +55,7 @@ namespace Consultorio.Infra.Data.Repository
             }
         }
 
-        public async Task<Especialidade> Editar(Especialidade editar)
+        public async Task<Specialty> Editar(Specialty editar)
         {
             _context.Especialidades.Update(editar);
             await _context.SaveChangesAsync();

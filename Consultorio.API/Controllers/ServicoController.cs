@@ -11,29 +11,29 @@ namespace Consultorio.API.Controllers
     [ApiController]
     public class ServicoController : ControllerBase
     {
-        private readonly ICRUDService<ServicoOutputDTO, ServicoInputDTO> _service;
-        private readonly IValidator<ServicoInputDTO> _validator;
+        private readonly ICRUDService<ServiceOutputDTO, ServiceInputDTO> _service;
+        private readonly IValidator<ServiceInputDTO> _validator;
 
-        public ServicoController(ICRUDService<ServicoOutputDTO, ServicoInputDTO> service, IValidator<ServicoInputDTO> validator)
+        public ServicoController(ICRUDService<ServiceOutputDTO, ServiceInputDTO> service, IValidator<ServiceInputDTO> validator)
         {
             _service = service;
             _validator = validator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ServicoOutputDTO>>> BuscarTodos()
+        public async Task<ActionResult<List<ServiceOutputDTO>>> BuscarTodos()
         {
             return await _service.BuscarTodos();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServicoOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<ServiceOutputDTO>> BuscarPorId(int id)
         {
             return await _service.BuscarPorId(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServicoOutputDTO>> Criar([FromBody] ServicoInputDTO cadastrar)
+        public async Task<ActionResult<ServiceOutputDTO>> Criar([FromBody] ServiceInputDTO cadastrar)
         {
             var result = _validator.Validate(cadastrar);
             if (!result.IsValid)
@@ -44,7 +44,7 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ServicoOutputDTO>> Editar(int id, [FromBody] ServicoInputDTO editar)
+        public async Task<ActionResult<ServiceOutputDTO>> Editar(int id, [FromBody] ServiceInputDTO editar)
         {
             var result = _validator.Validate(editar);
             if (!result.IsValid)

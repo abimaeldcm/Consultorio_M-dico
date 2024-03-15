@@ -29,26 +29,26 @@ namespace Consultorio.Infra.IoC
                     b => b.MigrationsAssembly(typeof(ConsultorioDbContext).Assembly.FullName)));
 
             //Atendimento
-            services.AddScoped<ICRUDService<AtendimentoOutputDTO,AtendimentoInputDTO>, AtendimentoService>();
-            services.AddScoped<ICRUDRepository<Atendimento>, AtendimentoRepository>();
+            services.AddScoped<ICRUDService<ConsultOutputDTO,ConsultInputDTO>, AtendimentoService>();
+            services.AddScoped<ICRUDRepository<Consult>, ConsultRepository>();
             
             //Espacialidade
-            services.AddScoped<ICRUDService<EspecialidadeOutputDTO,EspecialidadeInputDTO>, EspecialidadeService>();
-            services.AddScoped<ICRUDRepository<Especialidade>, EspecialidadeRepository>();
+            services.AddScoped<ICRUDService<SpecialityOutputDTO,SpecialityInputDTO>, EspecialidadeService>();
+            services.AddScoped<ICRUDRepository<Specialty>, EspecialidadeRepository>();
 
             //Médico
-            services.AddScoped<ICRUDService<MedicoOutputDTO,MedicoInputDTO>, MedicoService>();
-            services.AddScoped<ICRUDRepository<Medico>, MedicoRepository>();
+            services.AddScoped<ICRUDService<DoctorOutputDTO,DoctorInputDTO>, MedicoService>();
+            services.AddScoped<ICRUDRepository<Doctor>, DoctorRepository>();
 
             //Paciente
-            services.AddScoped<ICRUDService<PacienteOutputDTO,PacienteInputDTO>, PacienteService>();
-            services.AddScoped<ICRUDRepository<Paciente>, PacienteRepository>();
+            services.AddScoped<ICRUDService<PatientOutputDTO,PatientInputDTO>, PacienteService>();
+            services.AddScoped<ICRUDRepository<Patient>, PatientRepository>();
 
             //Servico
-            services.AddScoped<ICRUDService<ServicoOutputDTO,ServicoInputDTO>, ServicoService>();
-            services.AddScoped<ICRUDRepository<Servico>, ServicoRepository>();
+            services.AddScoped<ICRUDService<ServiceOutputDTO,ServiceInputDTO>, ServicoService>();
+            services.AddScoped<ICRUDRepository<ServiceEntity>, ServiceRepository>();
 
-            services.AddScoped<ICRUDRepository<Servico>, ServicoRepository>();
+            services.AddScoped<ICRUDRepository<ServiceEntity>, ServiceRepository>();
 
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EspecialidadeValidation>());
 

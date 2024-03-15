@@ -4,7 +4,7 @@ namespace Consultorio.Application.Email
 {
     public static class MensagemEmail
     {
-        public static async Task<string> Mensagens(Servico servico, Paciente paciente, Atendimento atendimento, string assunto, string mensagem) => await
+        public static async Task<string> Mensagens(ServiceEntity servico, Paciente paciente, Consult atendimento, string assunto, string mensagem) => await
                 $"Confirmação de Agendamento de consulta: {servico.Nome}." +
                 $"Prezado(a), {paciente} <br> " +
                 $"É com satisfação que informamos a confirmação do agendamento da sua consulta para o dia {atendimento.Inicio.Date.ToString("dd/MM/yyyy")} às {atendimento.Inicio.ToString("HH:mm")}.<br> " +

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Configurations
 {
-    public class ServicoConfigurations : IEntityTypeConfiguration<Servico>
+    public class ServicoConfigurations : IEntityTypeConfiguration<ServiceEntity>
     {
-        public void Configure(EntityTypeBuilder<Servico> builder)
+        public void Configure(EntityTypeBuilder<ServiceEntity> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Nome).IsRequired().HasMaxLength(100);

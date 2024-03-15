@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Consultorio.Application.Validations
 {
-    public class EspecialidadeValidation : AbstractValidator<EspecialidadeInputDTO>
+    public class EspecialidadeValidation : AbstractValidator<SpecialityInputDTO>
     {
         public EspecialidadeValidation()
         {

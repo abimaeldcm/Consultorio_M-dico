@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Consultorio.Infra.Data.Configurations
 {
-    public class EspeciaidadeConfiguration : IEntityTypeConfiguration<Especialidade>
+    public class EspeciaidadeConfiguration : IEntityTypeConfiguration<Specialty>
     {
-        public void Configure(EntityTypeBuilder<Especialidade> builder)
+        public void Configure(EntityTypeBuilder<Specialty> builder)
         {
             builder.HasKey(p => p.Id);
             builder.HasData(
-                    new Especialidade { Id = 1, EspecialidadeMedica = "Clínico Geral" },
-                    new Especialidade { Id = 2, EspecialidadeMedica = "Cardiologia" },
-                    new Especialidade { Id = 3, EspecialidadeMedica = "Pediatria" },
-                    new Especialidade { Id = 4, EspecialidadeMedica = "Ortopedia" },
-                    new Especialidade { Id = 5, EspecialidadeMedica = "Dermatologia" },
-                    new Especialidade { Id = 6, EspecialidadeMedica = "Oftalmologia" },
-                    new Especialidade { Id = 7, EspecialidadeMedica = "Psiquiatria" },
-                    new Especialidade { Id = 8, EspecialidadeMedica = "Ginecologia" },
-                    new Especialidade { Id = 9, EspecialidadeMedica = "Urologia" },
-                    new Especialidade { Id = 10, EspecialidadeMedica = "Neurologia" }
+                    new Specialty { Id = 1, EspecialidadeMedica = "Clínico Geral" },
+                    new Specialty { Id = 2, EspecialidadeMedica = "Cardiologia" },
+                    new Specialty { Id = 3, EspecialidadeMedica = "Pediatria" },
+                    new Specialty { Id = 4, EspecialidadeMedica = "Ortopedia" },
+                    new Specialty { Id = 5, EspecialidadeMedica = "Dermatologia" },
+                    new Specialty { Id = 6, EspecialidadeMedica = "Oftalmologia" },
+                    new Specialty { Id = 7, EspecialidadeMedica = "Psiquiatria" },
+                    new Specialty { Id = 8, EspecialidadeMedica = "Ginecologia" },
+                    new Specialty { Id = 9, EspecialidadeMedica = "Urologia" },
+                    new Specialty { Id = 10, EspecialidadeMedica = "Neurologia" }
                 );
 
         }

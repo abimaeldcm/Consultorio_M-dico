@@ -4,11 +4,11 @@ namespace Consultorio.Infra.Data.Interfaces
 {
     public interface ICRUDRepository<T> where T : class
     {
-        Task<List<T>> BuscarTodos();
-        Task<T> BuscarPorId(int id);
-        Task<List<T>> BuscarPorTexto(string termoPesquisa);
-        Task<T> Cadastrar(T cadastrar);
-        Task<T> Editar(T editar);
+        Task<List<T>> GetAll();
+        Task<T> FindById(int id);
+        Task<List<T>> FindByText(string query);
+        Task<T> Create(T create);
+        Task<T> Update(T update);
         Task<bool> Delete(int id);
     }
 }
