@@ -55,7 +55,8 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="DeleteExecutar" method="post">
+        <input type="hidden" name="id" value=@Model.Id />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

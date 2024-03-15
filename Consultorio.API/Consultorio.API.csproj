@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="credential.json" />
+    <Content Remove="credentialEmail.json" />
+    <Content Remove="tokenEmail\credentialEmail.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="credential.json" />
+    <None Include="credentialEmail.json" />
+    <None Include="tokenEmail\credentialEmail.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

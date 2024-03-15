@@ -1,53 +1,98 @@
-﻿using Microsoft.Extensions.Configuration;
-using MimeKit;
-using MimeKit.Text;
-using MailKit.Security;
-using MailKit.Net.Smtp;
+﻿using Google.Apis.Util.Store;
 
 namespace Consultorio.Application.Email
 {
+    using Google.Apis.Auth.OAuth2;
+    using Google.Apis.Gmail.v1;
+    using Google.Apis.Gmail.v1.Data;
+    using Google.Apis.Services;
+    using Microsoft.Extensions.Configuration;
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class EnviarEmail : IEnviarEmail
     {
-        private readonly IConfiguration _configuration; //Vai lá em appsetings e pega alguma informação que você quer.
-                                                        //No caso aqui, nós queremos o SMTP
+        private readonly IConfiguration _configuration;
+
         public EnviarEmail(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
         public async Task<bool> Enviar(string email, string assunto, string mensagem)
         {
             try
             {
-                var inicializarEmail = new MimeMessage();
-                inicializarEmail.From.Add(MailboxAddress.Parse(_configuration.GetSection("SMTP:UserName").Value));
-                inicializarEmail.To.Add(MailboxAddress.Parse(email));
-                inicializarEmail.Subject = assunto;
-                inicializarEmail.Body = new TextPart(TextFormat.Html)
+                string applicationName = "Gerenciador Gmail";
+                string[] scopes = { GmailService.Scope.GmailSend };
+
+                UserCredential credential;
+                using (var stream = new FileStream("credentialEmail.json", FileMode.Open, FileAccess.Read))
                 {
-                    Text = mensagem
+                    string credPath = "tokenEmail.json";
+                    credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                            GoogleClientSecrets.FromStream(stream).Secrets,
+                            scopes,
+                            "user",
+                            CancellationToken.None,
+                            new FileDataStore(credPath, true)
+                    );
+                }
+
+                // Create Gmail API service
+                var service = new GmailService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = applicationName
+                });
+
+                // Create a new message
+                var gmailMessage = new Message
+                {
+                    Raw = Base64UrlEncode(CreateMessage(email, assunto, mensagem))
                 };
 
-                using var smtp = new SmtpClient();
-                await smtp.ConnectAsync(
-                    _configuration.GetSection("SMTP:Host").Value,
-                    int.Parse(_configuration.GetSection("SMTP:Porta").Value),
-                    SecureSocketOptions.StartTls
-                );
+                // Send the email
+                var result = await service.Users.Messages.Send(gmailMessage, "me").ExecuteAsync();
 
-                await smtp.AuthenticateAsync(
-                    _configuration.GetSection("SMTP:UserName").Value,
-                    _configuration.GetSection("SMTP:Senha").Value
-                );
-
-                await smtp.SendAsync(inicializarEmail);
-                await smtp.DisconnectAsync(true);
+                // Display the message ID of the sent email
+                Console.WriteLine("Message ID: " + result.Id);
 
                 return true;
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error sending email: {ex.Message}");
                 return false;
             }
         }
+
+        private string CreateMessage(string email, string assunto, string mensagem)
+        {
+            var msg = new StringBuilder();
+            msg.AppendLine("From: Consultório Médco <abimaelnagato@gmail.com>");
+            msg.AppendLine("To: Teste <" + email + ">");
+            msg.AppendLine("Subject: " + assunto);
+            msg.AppendLine("Content-Type: text/html; charset=utf-8");
+            msg.AppendLine();
+            msg.AppendLine(mensagem);
+
+            return msg.ToString();
+        }
+
+        private static string Base64UrlEncode(string input)
+        {
+            var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
+            return Convert.ToBase64String(inputBytes)
+                .Replace('+', '-')
+                .Replace('/', '_')
+                .Replace("=", "");
+        }
+
     }
 }
+
+

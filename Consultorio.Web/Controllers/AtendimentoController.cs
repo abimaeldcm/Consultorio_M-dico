@@ -121,16 +121,19 @@ namespace Consultorio.Web.Controllers
         // GET: AtendimentoController/Delete/5
         public async Task<ActionResult<Atendimento>> Delete(int id)
         {
-            return View();
+            var result = await _atendimentoService.BuscarPorId(id);
+
+            return View(result);
         }
 
         // POST: AtendimentoController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteExecutar(int id)
         {
             try
             {
+                await _atendimentoService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

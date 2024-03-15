@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Consultorio.Application.Calendario;
 using Consultorio.Application.Email;
 using Consultorio.Application.Interface;
 using Consultorio.Domain.Entity;
@@ -53,7 +54,7 @@ namespace Consultorio.Application.Service
             var atendimentoDb_Include = await _repository.BuscarPorId(atendimentoMap.Id);
             var resultado = await _enviarEmail.Enviar(
                 atendimentoDb_Include.Paciente.Email,
-                $"Confirmação de Agendamento do Exame: {atendimentoDb_Include.Servico.Nome}.",
+                $"Confirmação de Agendamento de consulta: {atendimentoDb_Include.Servico.Nome}.",
                 $"Prezado(a), {atendimentoDb_Include.Paciente.Nome} <br> " +
                 $"É com satisfação que informamos a confirmação do agendamento da sua consulta para o dia {atendimentoDb_Include.Inicio.Date.ToString("dd/MM/yyyy")} às {atendimentoDb_Include.Inicio.ToString("HH:mm")}.<br> " +
                 $"A consulta será realizada em nosso consultório localizado na Rua dos Bobos, Nº 0 <br> " +
@@ -63,13 +64,29 @@ namespace Consultorio.Application.Service
                 $"Clínica Médica <br>" +
                 $"(86) 9 9011-2255"
                 );
+            var agendamento = await GoogleCalendarServico.CreateGoogleCalendar(
+                new GoogleCalendar { 
+                    Summary= $"Consulta: {atendimentoDb_Include.Servico.Nome}", 
+                    Description= "", 
+                    Location= "Rua dos Bobos, Nº 0, Teresina,PI", 
+                    Start= atendimentoDb_Include.Inicio, 
+                    End = atendimentoDb_Include.Fim}, 
+                atendimentoDb_Include.Paciente.Email);
 
-            return atendimentoMap;
+
+
+            return null;
+           // return atendimentoMap;
         }
 
         public async Task<bool> Delete(int id)
         {
-            return await _repository.Delete(id);
+            var result = await _repository.Delete(id);
+            if (result is true)
+            {
+                await GoogleCalendarServico.DeleteEventGoogleCalendar("5r7h01fdlo5d7i8n4lkbnhk7d8");
+            }
+            return result;
         }
 
         public async Task<AtendimentoOutputDTO> Editar(int id, AtendimentoInputDTO editar)

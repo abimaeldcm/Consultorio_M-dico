@@ -9,6 +9,7 @@
         public byte Convenio { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fim { get; set; }
+        public string? IdentificadoGoogleCalendario { get; set; }
 
         public Paciente Paciente { get; set; }
         public Servico Servico { get; set; }
