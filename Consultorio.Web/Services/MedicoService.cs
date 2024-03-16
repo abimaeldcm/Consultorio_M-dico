@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Consultorio.Web.Services
 {
-    public class MedicoService : ICRUD<Medico>
+    public class MedicoService : ICRUD<Doctor>
     {
         private readonly IHttpClientFactory _ClientFactory;
         private const string apiEndpoint = "api/Medico/";
         private readonly JsonSerializerOptions _options;
-        private Medico medico;
-        private IEnumerable<Medico> medicos;
+        private Doctor medico;
+        private IEnumerable<Doctor> medicos;
 
         public MedicoService(IHttpClientFactory clientFactory)
         {
@@ -19,7 +19,7 @@ namespace Consultorio.Web.Services
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
-        public async Task<Medico> BuscarPorId(int id)
+        public async Task<Doctor> BuscarPorId(int id)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -28,14 +28,14 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    medico = JsonSerializer.Deserialize<Medico>(apiResponse, _options);
+                    medico = JsonSerializer.Deserialize<Doctor>(apiResponse, _options);
                 }
             }
 
             return medico;
         }
 
-        public async Task<IEnumerable<Medico>> BuscarPorTexto(string termoPesquisa)
+        public async Task<IEnumerable<Doctor>> BuscarPorTexto(string termoPesquisa)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -44,13 +44,13 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    medicos = JsonSerializer.Deserialize<List<Medico>>(apiResponse, _options);
+                    medicos = JsonSerializer.Deserialize<List<Doctor>>(apiResponse, _options);
                 }
             }
 
             return medicos;
         }
-        public async Task<IEnumerable<Medico>> BuscarTodos()
+        public async Task<IEnumerable<Doctor>> BuscarTodos()
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
             using (var response = await client.GetAsync(apiEndpoint))
@@ -59,7 +59,7 @@ namespace Consultorio.Web.Services
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     medicos = (await JsonSerializer
-                                .DeserializeAsync<List<Medico>>(apiResponse, _options));
+                                .DeserializeAsync<List<Doctor>>(apiResponse, _options));
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Consultorio.Web.Services
 
             return medicos;
         }
-        public async Task<Medico> Cadastrar(Medico cadastrar)
+        public async Task<Doctor> Cadastrar(Doctor cadastrar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -80,7 +80,7 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    medico = JsonSerializer.Deserialize<Medico>(apiResponse, _options);
+                    medico = JsonSerializer.Deserialize<Doctor>(apiResponse, _options);
                 }
             }
 
@@ -97,7 +97,7 @@ namespace Consultorio.Web.Services
             }
         }
 
-        public async Task<object> Editar(int id, Medico editar)
+        public async Task<object> Editar(int id, Doctor editar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -108,7 +108,7 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    medico = JsonSerializer.Deserialize<Medico>(apiResponse, _options);
+                    medico = JsonSerializer.Deserialize<Doctor>(apiResponse, _options);
                 }
             }
 

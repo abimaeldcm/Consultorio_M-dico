@@ -4,11 +4,11 @@ using FluentValidation;
 
 namespace Consultorio.Application.Validations
 {
-    public class EspecialidadeValidation : AbstractValidator<SpecialityInputDTO>
+    public class SpecialityValidation : AbstractValidator<SpecialityInputDTO>
     {
-        public EspecialidadeValidation()
+        public SpecialityValidation()
         {
-            RuleFor(e => e.EspecialidadeMedica)
+            RuleFor(e => e.MedicalSpecialty)
                 .MaximumLength(100)
                 .WithMessage("Especialidade com o nome muito grande");
         }

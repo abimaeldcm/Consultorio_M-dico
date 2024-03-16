@@ -71,13 +71,13 @@ namespace Consultorio.Application.Calendario
                 Location = request.Location,
                 Start = new EventDateTime
                 {
-                    DateTime = request.Start
-                   // TimeZone = "(UTC-03:00) Brasília"
+                    DateTime = request.Start.ToUniversalTime(),
+                    TimeZone = "America/Fortaleza"
                 },
                 End = new EventDateTime
                 {
-                    DateTime = request.End
-                    //TimeZone = "(UTC-03:00) Brasília"
+                    DateTime = request.End.ToUniversalTime(),
+                    TimeZone = "America/Fortaleza"
                 },
                 Description = request.Description,
             };
@@ -122,27 +122,25 @@ namespace Consultorio.Application.Calendario
             return events;
         }
 
-        public static async Task<Event> UpdateEventGoogleCalendar(string eventId)
+        public static async Task<Event> UpdateEventGoogleCalendar(string eventId, string title, DateTime start, DateTime end)
         {
             string[] scopes = { $"https://www.googleapis.com/calendar/v3/calendars/{CALENDAR_ID}/events/{eventId}" };
             var services = await ConnectGoogleAgenda(scopes);
 
-            Event eventCalendar = new Event()
-            {
-                Summary = "Atualizando",
-                Location = "São Paulo",
-                Start = new EventDateTime
-                {
-                    DateTime = DateTime.Parse("2023-03-25T00:49:18.227Z"),
-                    TimeZone = "(UTC-03:00) Brasília"
-                },
-                End = new EventDateTime
-                {
-                    DateTime = DateTime.Parse("2023-03-25T00:49:18.227Z"),
-                    TimeZone = "(UTC-03:00) Brasília"
-                },
-                Description = "Descrição do evento atualizado",
+            Event eventCalendar = await GetEventGoogleCalendar(eventId);
 
+            eventCalendar.Summary = title;
+
+            eventCalendar.Start = new EventDateTime
+            {
+                DateTime = start.ToUniversalTime(),
+                TimeZone = "America/Fortaleza"
+            };
+
+            eventCalendar.End = new EventDateTime
+            {
+                DateTime = end.ToUniversalTime(),
+                TimeZone = "America/Fortaleza"
             };
 
             var events = await services.Events.Update(eventCalendar, CALENDAR_ID, eventId).ExecuteAsync();

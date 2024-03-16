@@ -11,19 +11,19 @@ namespace Consultorio.Infra.Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder
-                .HasOne(a => a.Paciente)
+                .HasOne(a => a.Patient)
                 .WithMany()
-                .HasForeignKey(a => a.IdPaciente).IsRequired();
+                .HasForeignKey(a => a.IdPatient).IsRequired();
 
             builder
-                .HasOne(a => a.Servico)
+                .HasOne(a => a.Service)
                 .WithMany()
-                .HasForeignKey(a => a.IdServico).IsRequired();
+                .HasForeignKey(a => a.IdService).IsRequired();
 
             builder
-                .HasOne(a => a.Medico)
+                .HasOne(a => a.Doctor)
                 .WithMany()
-                .HasForeignKey(a => a.IdMedico).IsRequired();
+                .HasForeignKey(a => a.IdDoctor).IsRequired();
         }
     }
 }

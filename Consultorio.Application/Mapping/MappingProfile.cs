@@ -15,11 +15,11 @@ namespace Consultorio.Application.Mapping
             CreateMap<SpecialityInputDTO, Specialty>();
             CreateMap<Specialty, SpecialityOutputDTO>();
 
-            CreateMap<DoctorInputDTO, Medico>();
-            CreateMap<Medico, DoctorOutputDTO>();
+            CreateMap<DoctorInputDTO, Doctor>();
+            CreateMap<Doctor, DoctorOutputDTO>();
 
-            CreateMap<PatientInputDTO, Paciente>();
-            CreateMap<Paciente, PatientOutputDTO>();
+            CreateMap<PatientInputDTO, Patient>();
+            CreateMap<Patient, PatientOutputDTO>();
 
             CreateMap<ServiceInputDTO, ServiceEntity>();
             CreateMap<ServiceEntity, ServiceOutputDTO>();

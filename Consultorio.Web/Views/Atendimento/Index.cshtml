@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Consultorio.Web.Models.Atendimento>
+﻿@model IEnumerable<Consultorio.Web.Models.Consult>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,40 +17,44 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente)
+                @Html.DisplayNameFor(model => model.Patient)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Servico)
+                @Html.DisplayNameFor(model => model.Service)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Medico)
+                @Html.DisplayNameFor(model => model.Doctor)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model.Any())
         {
-            <tr>
+            @foreach (var item in Model)
+            {
+                <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Paciente.NomeCompleto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Servico.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Medico.NomeCompleto)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { item.Id })
-                </td>
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Patient.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Doctor.FullName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { item.Id })
+                    </td>
+                </tr>
+            }
         }
+
     </tbody>
 </table>

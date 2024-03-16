@@ -2,11 +2,11 @@
 {
     public interface ICRUDService<T, U> where T : class where U : class
     {
-        Task<List<T>> BuscarTodos();
-        Task<T> BuscarPorId(int id);
-        Task<List<T>> BuscarPorTexto(string termoPesquisa);
-        Task<T> Cadastrar(U cadastrar);
-        Task<T> Editar(int id,U editar);
+        Task<List<T>> GetAll();
+        Task<T> FindById(int id);
+        Task<List<T>> FindByText(string query);
+        Task<T> Create(U create);
+        Task<T> Update(int id,U update);
         Task<bool> Delete(int id);
     }
 }

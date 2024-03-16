@@ -13,37 +13,37 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<Specialty> BuscarPorId(int id)
+        public async Task<Specialty> FindById(int id)
         {
-            return await _context.Especialidades.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Specialty.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<List<Specialty>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<Specialty>> FindByText(string query)
         {
-            return await _context.Especialidades
-                                .Where(m => EF.Functions.Like(m.EspecialidadeMedica, $"%{termoPesquisa}%"))
+            return await _context.Specialty
+                                .Where(m => EF.Functions.Like(m.MedicalSpecialty, $"%{query}%"))
                                 .ToListAsync();
         }
 
-        public async Task<List<Specialty>> BuscarTodos()
+        public async Task<List<Specialty>> GetAll()
         {
-            return await _context.Especialidades.ToListAsync();
+            return await _context.Specialty.ToListAsync();
         }
 
-        public async Task<Specialty> Cadastrar(Specialty cadastrar)
+        public async Task<Specialty> Create(Specialty create)
         {
-            await _context.Especialidades.AddAsync(cadastrar);
+            await _context.Specialty.AddAsync(create);
             await _context.SaveChangesAsync();
 
-            return cadastrar;
+            return create;
         }
 
         public async Task<bool> Delete(int id)
         {
             try
             {
-                var especialidadeDb = await BuscarPorId(id);
-                _context.Especialidades.Remove(especialidadeDb);
+                var especialidadeDb = await FindById(id);
+                _context.Specialty.Remove(especialidadeDb);
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -55,12 +55,12 @@ namespace Consultorio.Infra.Data.Repository
             }
         }
 
-        public async Task<Specialty> Editar(Specialty editar)
+        public async Task<Specialty> Update(Specialty update)
         {
-            _context.Especialidades.Update(editar);
+            _context.Specialty.Update(update);
             await _context.SaveChangesAsync();
 
-            return editar;
+            return update;
         }
     }
 }

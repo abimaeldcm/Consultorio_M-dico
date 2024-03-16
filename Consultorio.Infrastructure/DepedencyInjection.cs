@@ -29,30 +29,30 @@ namespace Consultorio.Infra.IoC
                     b => b.MigrationsAssembly(typeof(ConsultorioDbContext).Assembly.FullName)));
 
             //Atendimento
-            services.AddScoped<ICRUDService<ConsultOutputDTO,ConsultInputDTO>, AtendimentoService>();
+            services.AddScoped<ICRUDService<ConsultOutputDTO,ConsultInputDTO>, ConsultService>();
             services.AddScoped<ICRUDRepository<Consult>, ConsultRepository>();
             
             //Espacialidade
-            services.AddScoped<ICRUDService<SpecialityOutputDTO,SpecialityInputDTO>, EspecialidadeService>();
+            services.AddScoped<ICRUDService<SpecialityOutputDTO,SpecialityInputDTO>, SpecialityService>();
             services.AddScoped<ICRUDRepository<Specialty>, EspecialidadeRepository>();
 
             //Médico
-            services.AddScoped<ICRUDService<DoctorOutputDTO,DoctorInputDTO>, MedicoService>();
+            services.AddScoped<ICRUDService<DoctorOutputDTO,DoctorInputDTO>, DoctorService>();
             services.AddScoped<ICRUDRepository<Doctor>, DoctorRepository>();
 
             //Paciente
-            services.AddScoped<ICRUDService<PatientOutputDTO,PatientInputDTO>, PacienteService>();
+            services.AddScoped<ICRUDService<PatientOutputDTO,PatientInputDTO>, PatientService>();
             services.AddScoped<ICRUDRepository<Patient>, PatientRepository>();
 
             //Servico
-            services.AddScoped<ICRUDService<ServiceOutputDTO,ServiceInputDTO>, ServicoService>();
+            services.AddScoped<ICRUDService<ServiceOutputDTO,ServiceInputDTO>, ServiceService>();
             services.AddScoped<ICRUDRepository<ServiceEntity>, ServiceRepository>();
 
             services.AddScoped<ICRUDRepository<ServiceEntity>, ServiceRepository>();
 
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EspecialidadeValidation>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SpecialityValidation>());
 
-            services.AddScoped<IEnviarEmail, EnviarEmail>();
+            services.AddScoped<ISeedEmail, SeedEmail>();
 
 
             return services;

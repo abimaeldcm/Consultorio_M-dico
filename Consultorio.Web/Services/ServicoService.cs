@@ -5,13 +5,13 @@ using Consultorio.Web.Services.Interfaces;
 
 namespace Consultorio.Web.Servicos
 {
-    public class ServicoServico : ICRUD<Servico>
+    public class ServicoServico : ICRUD<ServiceEntity>
     {
         private readonly IHttpClientFactory _ClientFactory;
         private const string apiEndpoint = "api/Servico/";
         private readonly JsonSerializerOptions _options;
-        private Servico servico;
-        private IEnumerable<Servico> servicos;
+        private ServiceEntity servico;
+        private IEnumerable<ServiceEntity> servicos;
 
         public ServicoServico(IHttpClientFactory clientFactory)
         {
@@ -19,7 +19,7 @@ namespace Consultorio.Web.Servicos
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
-        public async Task<Servico> BuscarPorId(int id)
+        public async Task<ServiceEntity> BuscarPorId(int id)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -28,14 +28,14 @@ namespace Consultorio.Web.Servicos
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    servico = JsonSerializer.Deserialize<Servico>(apiResponse, _options);
+                    servico = JsonSerializer.Deserialize<ServiceEntity>(apiResponse, _options);
                 }
             }
 
             return servico;
         }
 
-        public async Task<IEnumerable<Servico>> BuscarPorTexto(string termoPesquisa)
+        public async Task<IEnumerable<ServiceEntity>> BuscarPorTexto(string termoPesquisa)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -44,13 +44,13 @@ namespace Consultorio.Web.Servicos
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    servicos = JsonSerializer.Deserialize<List<Servico>>(apiResponse, _options);
+                    servicos = JsonSerializer.Deserialize<List<ServiceEntity>>(apiResponse, _options);
                 }
             }
 
             return servicos;
         }
-        public async Task<IEnumerable<Servico>> BuscarTodos()
+        public async Task<IEnumerable<ServiceEntity>> BuscarTodos()
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
             using (var response = await client.GetAsync(apiEndpoint))
@@ -59,7 +59,7 @@ namespace Consultorio.Web.Servicos
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     servicos = (await JsonSerializer
-                                .DeserializeAsync<List<Servico>>(apiResponse, _options));
+                                .DeserializeAsync<List<ServiceEntity>>(apiResponse, _options));
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Consultorio.Web.Servicos
 
             return servicos;
         }
-        public async Task<Servico> Cadastrar(Servico cadastrar)
+        public async Task<ServiceEntity> Cadastrar(ServiceEntity cadastrar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -80,7 +80,7 @@ namespace Consultorio.Web.Servicos
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    servico = JsonSerializer.Deserialize<Servico>(apiResponse, _options);
+                    servico = JsonSerializer.Deserialize<ServiceEntity>(apiResponse, _options);
                 }
             }
 
@@ -97,7 +97,7 @@ namespace Consultorio.Web.Servicos
             }
         }
 
-        public async Task<object> Editar(int id, Servico editar)
+        public async Task<object> Editar(int id, ServiceEntity editar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -108,7 +108,7 @@ namespace Consultorio.Web.Servicos
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    servico = JsonSerializer.Deserialize<Servico>(apiResponse, _options);
+                    servico = JsonSerializer.Deserialize<ServiceEntity>(apiResponse, _options);
                 }
             }
 

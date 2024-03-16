@@ -1,6 +1,6 @@
 ﻿namespace Consultorio.Web.Models.Enum
 {
-    public enum ETipoSanguineo : int
+    public enum ETBloodType : int
     {
         APositivo,
         ANegativo,

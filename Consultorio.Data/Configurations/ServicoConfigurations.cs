@@ -9,10 +9,10 @@ namespace Consultorio.Infra.Data.Configurations
         public void Configure(EntityTypeBuilder<ServiceEntity> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Nome).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.Descricao).IsRequired().HasMaxLength(1000);
-            builder.Property(x => x.Valor).IsRequired().HasColumnType("decimal(18,2)");
-            builder.Property(x => x.Valor).IsRequired();
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.Description).IsRequired().HasMaxLength(1000);
+            builder.Property(x => x.Value).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(x => x.Value).IsRequired();
         }
     }
 }

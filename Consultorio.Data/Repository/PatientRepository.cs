@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class PatientRepository : ICRUDRepository<Paciente>
+    public class PatientRepository : ICRUDRepository<Patient>
     {
         private readonly ConsultorioDbContext _context;
 
@@ -13,41 +13,41 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<Paciente> BuscarPorId(int id)
+        public async Task<Patient> FindById(int id)
         {
-            return await _context.Pacientes.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Patients.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<List<Paciente>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<Patient>> FindByText(string termoPesquisa)
         {
-            return await _context.Pacientes
-                            .Where(m => EF.Functions.Like(m.Nome, $"%{termoPesquisa}%") ||
-                                EF.Functions.Like(m.Sobrenome, $"%{termoPesquisa}%") ||
-                                EF.Functions.Like(m.Telefone, $"%{termoPesquisa}%") ||
+            return await _context.Patients
+                            .Where(m => EF.Functions.Like(m.Name, $"%{termoPesquisa}%") ||
+                                EF.Functions.Like(m.LastName, $"%{termoPesquisa}%") ||
+                                EF.Functions.Like(m.PhoneNumber, $"%{termoPesquisa}%") ||
                                 EF.Functions.Like(m.CPF, $"%{termoPesquisa}%") ||
-                                EF.Functions.Like(m.Endereco, $"%{termoPesquisa}%"))
+                                EF.Functions.Like(m.Address, $"%{termoPesquisa}%"))
                             .ToListAsync();
         }
 
-        public async Task<List<Paciente>> BuscarTodos()
+        public async Task<List<Patient>> GetAll()
         {
-            return await _context.Pacientes.ToListAsync();
+            return await _context.Patients.ToListAsync();
         }
 
-        public async Task<Paciente> Cadastrar(Paciente cadastrar)
+        public async Task<Patient> Create(Patient create)
         {
-            await _context.Pacientes.AddAsync(cadastrar);
+            await _context.Patients.AddAsync(create);
             await _context.SaveChangesAsync();
 
-            return cadastrar;
+            return create;
         }
 
         public async Task<bool> Delete(int id)
         {
             try
             {
-                var pacienteDb = await BuscarPorId(id);
-                _context.Pacientes.Remove(pacienteDb);
+                var PatientDb = await FindById(id);
+                _context.Patients.Remove(PatientDb);
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -60,11 +60,11 @@ namespace Consultorio.Infra.Data.Repository
 
         }
 
-        public async Task<Paciente> Editar(Paciente editar)
+        public async Task<Patient> Update(Patient update)
         {
-            _context.Pacientes.Update(editar);
+            _context.Patients.Update(update);
             await _context.SaveChangesAsync();
-            return editar;
+            return update;
         }
     }
 }

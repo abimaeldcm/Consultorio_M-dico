@@ -8,10 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<ICRUD<Paciente>,PacienteService>();
-builder.Services.AddScoped<ICRUD<Atendimento>, AtendimentoService>();
-builder.Services.AddScoped<ICRUD<Medico>, MedicoService>();
-builder.Services.AddScoped<ICRUD<Servico>, ServicoServico>();
+builder.Services.AddScoped<ICRUD<Patient>,PacienteService>();
+builder.Services.AddScoped<ICRUD<Consult>, AtendimentoService>();
+builder.Services.AddScoped<ICRUD<Doctor>, MedicoService>();
+builder.Services.AddScoped<ICRUD<ServiceEntity>, ServicoServico>();
 
 builder.Services.AddHttpClient("ConsultorioAPI", c =>
 c.BaseAddress = new Uri(builder.Configuration["ServiceUri:ConsultorioAPI"]));

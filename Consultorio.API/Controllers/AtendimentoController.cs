@@ -1,10 +1,8 @@
 ﻿using Consultorio.Application.Interface;
-using Consultorio.Application.Service;
 using Consultorio.Domain.Entity.InputDTOs;
 using Consultorio.Domain.Entity.OutPutDTOs;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Consultorio.API.Controllers
 {
@@ -22,38 +20,38 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ConsultOutputDTO>>> BuscarTodos()
+        public async Task<ActionResult<List<ConsultOutputDTO>>> GetAll()
         {
-            return Ok(await _service.BuscarTodos());
+            return Ok(await _service.GetAll());
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ConsultOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<ConsultOutputDTO>> FindById(int id)
         {
-            return Ok (await _service.BuscarPorId(id));
+            return Ok (await _service.FindById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ConsultOutputDTO>> Criar([FromBody] ConsultInputDTO cadastrar)
+        public async Task<ActionResult<ConsultOutputDTO>> Create([FromBody] ConsultInputDTO create)
         {
-            var result = _validator.Validate(cadastrar);
+            var result = _validator.Validate(create);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            return Ok(await _service.Cadastrar(cadastrar));
+            return Ok(await _service.Create(create));
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ConsultOutputDTO>> Editar(int id, [FromBody] ConsultInputDTO editar)
+        public async Task<ActionResult<ConsultOutputDTO>> Update(int id, [FromBody] ConsultInputDTO update)
         {
 
-            var result = _validator.Validate(editar);
+            var result = _validator.Validate(update);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            return Ok(await _service.Editar(id, editar));
+            return Ok(await _service.Update(id, update));
         }
 
         [HttpDelete("{id}")]

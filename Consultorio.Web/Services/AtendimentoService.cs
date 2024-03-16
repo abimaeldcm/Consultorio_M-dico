@@ -5,13 +5,13 @@ using System.Text.Json;
 
 namespace Consultorio.Web.Services
 {
-    public class AtendimentoService : ICRUD<Atendimento>
+    public class AtendimentoService : ICRUD<Consult>
     {
         private readonly IHttpClientFactory _ClientFactory;
         private const string apiEndpoint = "api/Atendimento/";
         private readonly JsonSerializerOptions _options;
-        private Atendimento atendimento;
-        private IEnumerable<Atendimento> atendimentos;
+        private Consult atendimento;
+        private IEnumerable<Consult> atendimentos;
 
         public AtendimentoService(IHttpClientFactory clientFactory)
         {
@@ -19,7 +19,7 @@ namespace Consultorio.Web.Services
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
-        public async Task<Atendimento> BuscarPorId(int id)
+        public async Task<Consult> BuscarPorId(int id)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -28,14 +28,14 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    atendimento = JsonSerializer.Deserialize<Atendimento>(apiResponse, _options);
+                    atendimento = JsonSerializer.Deserialize<Consult>(apiResponse, _options);
                 }
             }
 
             return atendimento;
         }
 
-        public async Task<IEnumerable<Atendimento>> BuscarPorTexto(string termoPesquisa)
+        public async Task<IEnumerable<Consult>> BuscarPorTexto(string termoPesquisa)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -44,13 +44,13 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    atendimentos = JsonSerializer.Deserialize<List<Atendimento>>(apiResponse, _options);
+                    atendimentos = JsonSerializer.Deserialize<List<Consult>>(apiResponse, _options);
                 }
             }
 
             return atendimentos;
         }
-        public async Task<IEnumerable<Atendimento>> BuscarTodos()
+        public async Task<IEnumerable<Consult>> BuscarTodos()
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
             using (var response = await client.GetAsync(apiEndpoint))
@@ -59,7 +59,7 @@ namespace Consultorio.Web.Services
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     atendimentos = (await JsonSerializer
-                                .DeserializeAsync<List<Atendimento>>(apiResponse, _options));
+                                .DeserializeAsync<List<Consult>>(apiResponse, _options));
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Consultorio.Web.Services
 
             return atendimentos;
         }
-        public async Task<Atendimento> Cadastrar(Atendimento cadastrar)
+        public async Task<Consult> Cadastrar(Consult cadastrar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -80,7 +80,7 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    atendimento = JsonSerializer.Deserialize<Atendimento>(apiResponse, _options);
+                    atendimento = JsonSerializer.Deserialize<Consult>(apiResponse, _options);
                 }
             }
 
@@ -97,7 +97,7 @@ namespace Consultorio.Web.Services
             }
         }
 
-        public async Task<object> Editar(int id, Atendimento editar)
+        public async Task<object> Editar(int id, Consult editar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -108,7 +108,7 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    atendimento = JsonSerializer.Deserialize<Atendimento>(apiResponse, _options);
+                    atendimento = JsonSerializer.Deserialize<Consult>(apiResponse, _options);
                 }
                 else 
                 {

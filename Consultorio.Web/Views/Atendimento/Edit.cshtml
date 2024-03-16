@@ -1,4 +1,4 @@
-﻿@model Consultorio.Web.Models.Atendimento
+﻿@model Consultorio.Web.Models.Consult
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,23 +13,23 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input asp-for="IdPaciente" class="form-control" type="hidden" />
-                <span asp-validation-for="IdPaciente" class="text-danger"></span>
+                <input asp-for="IdPatient" class="form-control" type="hidden" />
+                <span asp-validation-for="IdPatient" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Paciente.Nome" class="form-control" type="hidden" />
-                <span asp-validation-for="Paciente.Nome" class="text-danger"></span>
+                <input asp-for="Patient.Name" class="form-control" type="hidden" />
+                <span asp-validation-for="Patient.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdServico" class="control-label">Serviço</label>
-                <select asp-for="IdServico" asp-items="@ViewBag.ServiceId" class="form-control"></select>
-                <span asp-validation-for="IdServico" class="text-danger"></span>
+                <label asp-for="IdService" class="control-label">Serviço</label>
+                <select asp-for="IdService" asp-items="@ViewBag.ServiceId" class="form-control"></select>
+                <span asp-validation-for="IdService" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="IdMedico" class="control-label"></label>
-                <select asp-for="IdMedico" asp-items="@ViewBag.MedicoId" class="form-control"></select>
-                <span asp-validation-for="IdMedico" class="text-danger"></span>
+                <label asp-for="IdDoctor" class="control-label"></label>
+                <select asp-for="IdDoctor" asp-items="@ViewBag.MedicoId" class="form-control"></select>
+                <span asp-validation-for="IdDoctor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Convenio" class="control-label">Convenio</label>
@@ -40,14 +40,14 @@
                 <span asp-validation-for="Convenio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Inicio" class="control-label"></label>
-                <input asp-for="Inicio" class="form-control" />
-                <span asp-validation-for="Inicio" class="text-danger"></span>
+                <label asp-for="Start" class="control-label"></label>
+                <input asp-for="Start" class="form-control" />
+                <span asp-validation-for="Start" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fim" class="control-label"></label>
-                <input asp-for="Fim" class="form-control" />
-                <span asp-validation-for="Fim" class="text-danger"></span>
+                <label asp-for="End" class="control-label"></label>
+                <input asp-for="End" class="form-control" />
+                <span asp-validation-for="End" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

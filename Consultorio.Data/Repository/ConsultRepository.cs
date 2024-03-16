@@ -1,6 +1,7 @@
 ﻿using Consultorio.Domain.Entity;
 using Consultorio.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Consultorio.Infra.Data.Repository
 {
@@ -58,10 +59,23 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<Consult> Update(Consult update)
         {
-            _context.Consults.Update(update);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var existingConsult = await _context.Consults.FindAsync(update.Id);
+                if (existingConsult == null)
+                {
+                    throw new ArgumentException("Consult not found.");
+                }
 
-            return update;
+                _context.Entry(existingConsult).CurrentValues.SetValues(update);
+                await _context.SaveChangesAsync();
+
+                return existingConsult;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

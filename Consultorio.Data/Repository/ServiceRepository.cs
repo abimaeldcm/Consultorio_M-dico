@@ -13,9 +13,9 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<ServiceEntity> BuscarPorId(int id)
+        public async Task<ServiceEntity> FindById(int id)
         {
-            var servicoDb = await _context.Servicos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            var servicoDb = await _context.Services.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             if (servicoDb is null)
             {
                 throw new Exception("Id Não existe no banco de dados.");
@@ -23,32 +23,32 @@ namespace Consultorio.Infra.Data.Repository
             return servicoDb;
         }
 
-        public async Task<List<ServiceEntity>> BuscarPorTexto(string termoPesquisa)
+        public async Task<List<ServiceEntity>> FindByText(string query)
         {
-            return await _context.Servicos
-                .Where(m => EF.Functions.Like(m.Nome, $"%{termoPesquisa}%") || EF.Functions.Like(m.Descricao, $"%{termoPesquisa}%"))
+            return await _context.Services
+                .Where(m => EF.Functions.Like(m.Name, $"%{query}%") || EF.Functions.Like(m.Description, $"%{query}%"))
                 .ToListAsync();
         }
 
-        public async Task<List<ServiceEntity>> BuscarTodos()
+        public async Task<List<ServiceEntity>> GetAll()
         {
-            return await _context.Servicos.ToListAsync();
+            return await _context.Services.ToListAsync();
         }
 
-        public async Task<ServiceEntity> Cadastrar(ServiceEntity cadastrar)
+        public async Task<ServiceEntity> Create(ServiceEntity create)
         {
-            await _context.Servicos.AddAsync(cadastrar);
+            await _context.Services.AddAsync(create);
             await _context.SaveChangesAsync();
 
-            return cadastrar;
+            return create;
         }
 
         public async Task<bool> Delete(int id)
         {
             try
             {
-                var servicoDb = await BuscarPorId(id);
-                _context.Servicos.Remove(servicoDb);
+                var serviceDb = await FindById(id);
+                _context.Services.Remove(serviceDb);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -59,11 +59,11 @@ namespace Consultorio.Infra.Data.Repository
             }
         }
 
-        public async Task<ServiceEntity> Editar(ServiceEntity editar)
+        public async Task<ServiceEntity> Update(ServiceEntity update)
         {
-            _context.Servicos.Update(editar);
+            _context.Services.Update(update);
             await _context.SaveChangesAsync();
-            return editar;
+            return update;
         }
     }
 }

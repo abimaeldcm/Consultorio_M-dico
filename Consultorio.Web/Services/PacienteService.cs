@@ -5,13 +5,13 @@ using System.Text.Json;
 
 namespace Consultorio.Web.Services
 {
-    public class PacienteService : ICRUD<Paciente>
+    public class PacienteService : ICRUD<Patient>
     {
         private readonly IHttpClientFactory _ClientFactory;
         private const string apiEndpoint = "api/Paciente/";
         private readonly JsonSerializerOptions _options;
-        private Paciente paciente;
-        private IEnumerable<Paciente> pacientes;
+        private Patient paciente;
+        private IEnumerable<Patient> pacientes;
 
         public PacienteService(IHttpClientFactory clientFactory)
         {
@@ -19,7 +19,7 @@ namespace Consultorio.Web.Services
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true};
         }
 
-        public async Task<Paciente> BuscarPorId(int id)
+        public async Task<Patient> BuscarPorId(int id)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -28,14 +28,14 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    paciente = JsonSerializer.Deserialize<Paciente>(apiResponse, _options);
+                    paciente = JsonSerializer.Deserialize<Patient>(apiResponse, _options);
                 }
             }
 
             return paciente;
         }
 
-        public async Task<IEnumerable<Paciente>> BuscarPorTexto(string termoPesquisa)
+        public async Task<IEnumerable<Patient>> BuscarPorTexto(string termoPesquisa)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -44,13 +44,13 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    pacientes = JsonSerializer.Deserialize<List<Paciente>>(apiResponse, _options);
+                    pacientes = JsonSerializer.Deserialize<List<Patient>>(apiResponse, _options);
                 }
             }
 
             return pacientes;
         }
-        public async Task<IEnumerable<Paciente>> BuscarTodos()
+        public async Task<IEnumerable<Patient>> BuscarTodos()
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
             using (var response = await client.GetAsync(apiEndpoint))
@@ -59,7 +59,7 @@ namespace Consultorio.Web.Services
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     pacientes = (await JsonSerializer
-                                .DeserializeAsync<List<Paciente>>(apiResponse, _options));
+                                .DeserializeAsync<List<Patient>>(apiResponse, _options));
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Consultorio.Web.Services
 
             return pacientes;
         }
-        public async Task<Paciente> Cadastrar(Paciente cadastrar)
+        public async Task<Patient> Cadastrar(Patient cadastrar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -80,7 +80,7 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    paciente = JsonSerializer.Deserialize<Paciente>(apiResponse, _options);
+                    paciente = JsonSerializer.Deserialize<Patient>(apiResponse, _options);
                 }
             }
 
@@ -97,7 +97,7 @@ namespace Consultorio.Web.Services
             }
         }
 
-        public async Task<object> Editar(int id, Paciente editar)
+        public async Task<object> Editar(int id, Patient editar)
         {
             var client = _ClientFactory.CreateClient("ConsultorioAPI");
 
@@ -108,7 +108,7 @@ namespace Consultorio.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    paciente = JsonSerializer.Deserialize<Paciente>(apiResponse, _options);
+                    paciente = JsonSerializer.Deserialize<Patient>(apiResponse, _options);
                 }
             }
 

@@ -20,37 +20,37 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<SpecialityOutputDTO>> BuscarTodos()
+        public async Task<ActionResult<SpecialityOutputDTO>> GetAll()
         {
-            return Ok(await _service.BuscarTodos());
+            return Ok(await _service.GetAll());
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<SpecialityOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<SpecialityOutputDTO>> FindById(int id)
         {
-            return Ok(await _service.BuscarPorId(id));
+            return Ok(await _service.FindById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<SpecialityOutputDTO>> Criar([FromBody] SpecialityInputDTO cadastrar)
+        public async Task<ActionResult<SpecialityOutputDTO>> Create([FromBody] SpecialityInputDTO create)
         {
-            var result = _validator.Validate(cadastrar);
+            var result = _validator.Validate(create);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            return Ok(await _service.Cadastrar(cadastrar));
+            return Ok(await _service.Create(create));
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<SpecialityOutputDTO>> Editar(int id, [FromBody] SpecialityInputDTO editar)
+        public async Task<ActionResult<SpecialityOutputDTO>> Update(int id, [FromBody] SpecialityInputDTO update)
         {
-            var result = _validator.Validate(editar);
+            var result = _validator.Validate(update);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            return Ok(await _service.Editar(id, editar));
+            return Ok(await _service.Update(id, update));
         }
 
         [HttpDelete("{id}")]

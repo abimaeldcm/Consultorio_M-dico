@@ -2,7 +2,6 @@
 using Consultorio.Domain.Entity.InputDTOs;
 using Consultorio.Domain.Entity.OutPutDTOs;
 using FluentValidation;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consultorio.API.Controllers
@@ -21,37 +20,37 @@ namespace Consultorio.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ServiceOutputDTO>>> BuscarTodos()
+        public async Task<ActionResult<List<ServiceOutputDTO>>> GetAll()
         {
-            return await _service.BuscarTodos();
+            return await _service.GetAll();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceOutputDTO>> BuscarPorId(int id)
+        public async Task<ActionResult<ServiceOutputDTO>> FindById(int id)
         {
-            return await _service.BuscarPorId(id);
+            return await _service.FindById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceOutputDTO>> Criar([FromBody] ServiceInputDTO cadastrar)
+        public async Task<ActionResult<ServiceOutputDTO>> Create([FromBody] ServiceInputDTO create)
         {
-            var result = _validator.Validate(cadastrar);
+            var result = _validator.Validate(create);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            return await _service.Cadastrar(cadastrar);
+            return await _service.Create(create);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ServiceOutputDTO>> Editar(int id, [FromBody] ServiceInputDTO editar)
+        public async Task<ActionResult<ServiceOutputDTO>> Update(int id, [FromBody] ServiceInputDTO update)
         {
-            var result = _validator.Validate(editar);
+            var result = _validator.Validate(update);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            return await _service.Editar(id, editar);
+            return await _service.Update(id, update);
         }
 
         [HttpDelete("{id}")]

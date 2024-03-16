@@ -1,28 +1,25 @@
 ﻿using Google.Apis.Util.Store;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Gmail.v1;
+using Google.Apis.Gmail.v1.Data;
+using Google.Apis.Services;
+using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace Consultorio.Application.Email
 {
-    using Google.Apis.Auth.OAuth2;
-    using Google.Apis.Gmail.v1;
-    using Google.Apis.Gmail.v1.Data;
-    using Google.Apis.Services;
-    using Microsoft.Extensions.Configuration;
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
 
-    public class EnviarEmail : IEnviarEmail
+
+    public class SeedEmail : ISeedEmail
     {
         private readonly IConfiguration _configuration;
 
-        public EnviarEmail(IConfiguration configuration)
+        public SeedEmail(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<bool> Enviar(string email, string assunto, string mensagem)
+        public async Task<bool> Seed(string email, string subject, string mensage)
         {
             try
             {
@@ -52,20 +49,16 @@ namespace Consultorio.Application.Email
                 // Create a new message
                 var gmailMessage = new Message
                 {
-                    Raw = Base64UrlEncode(CreateMessage(email, assunto, mensagem))
+                    Raw = Base64UrlEncode(CreateMessage(email, subject, mensage))
                 };
 
                 // Send the email
                 var result = await service.Users.Messages.Send(gmailMessage, "me").ExecuteAsync();
 
-                // Display the message ID of the sent email
-                Console.WriteLine("Message ID: " + result.Id);
-
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error sending email: {ex.Message}");
                 return false;
             }
         }
@@ -73,9 +66,9 @@ namespace Consultorio.Application.Email
         private string CreateMessage(string email, string assunto, string mensagem)
         {
             var msg = new StringBuilder();
-            msg.AppendLine("From: Consultório Médco <abimaelnagato@gmail.com>");
+            msg.AppendLine("From: Consultório Médico <abimaelnagato@gmail.com>");
             msg.AppendLine("To: Teste <" + email + ">");
-            msg.AppendLine("Subject: " + assunto);
+            msg.AppendLine("Subject: " + Encoding.UTF8.GetBytes(assunto));
             msg.AppendLine("Content-Type: text/html; charset=utf-8");
             msg.AppendLine();
             msg.AppendLine(mensagem);
@@ -85,7 +78,7 @@ namespace Consultorio.Application.Email
 
         private static string Base64UrlEncode(string input)
         {
-            var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
+            var inputBytes = Encoding.UTF8.GetBytes(input);
             return Convert.ToBase64String(inputBytes)
                 .Replace('+', '-')
                 .Replace('/', '_')

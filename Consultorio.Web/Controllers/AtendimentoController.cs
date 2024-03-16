@@ -1,7 +1,5 @@
 ﻿using Consultorio.Web.Models;
 using Consultorio.Web.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -9,12 +7,12 @@ namespace Consultorio.Web.Controllers
 {
     public class AtendimentoController : Controller
     {
-        private readonly ICRUD<Atendimento> _atendimentoService;
-        private readonly ICRUD<Servico> _servicoService;
-        private readonly ICRUD<Medico> _medicoService;
-        private readonly ICRUD<Paciente> _pacienteService;
+        private readonly ICRUD<Consult> _atendimentoService;
+        private readonly ICRUD<ServiceEntity> _servicoService;
+        private readonly ICRUD<Doctor> _medicoService;
+        private readonly ICRUD<Patient> _pacienteService;
 
-        public AtendimentoController(ICRUD<Atendimento> atendimentoService, ICRUD<Servico> servicoService, ICRUD<Medico> medicoService, ICRUD<Paciente> pacienteService)
+        public AtendimentoController(ICRUD<Consult> atendimentoService, ICRUD<ServiceEntity> servicoService, ICRUD<Doctor> medicoService, ICRUD<Patient> pacienteService)
         {
             _atendimentoService = atendimentoService;
             _servicoService = servicoService;
@@ -23,14 +21,14 @@ namespace Consultorio.Web.Controllers
         }
 
         // GET: AtendimentoController
-        public async Task<ActionResult<Atendimento>> Index()
+        public async Task<ActionResult<Consult>> Index()
         {
             var atendimentosDB = await _atendimentoService.BuscarTodos();
             return View(atendimentosDB);
         }
 
         // GET: AtendimentoController/Details/5
-        public async Task<ActionResult<Atendimento>> Details(int id)
+        public async Task<ActionResult<Consult>> Details(int id)
         {
             var atendimentoDb = await _atendimentoService.BuscarPorId(id);
             return View(atendimentoDb);
@@ -39,16 +37,16 @@ namespace Consultorio.Web.Controllers
         // GET: AtendimentoController/Create
         public async Task<ActionResult> Create()
         {
-            ViewBag.ServiceId = new SelectList((await _servicoService.BuscarTodos()).OrderBy(s => s.Nome), "Id", "Nome");
-            ViewBag.PacienteId = new SelectList((await _pacienteService.BuscarTodos()).OrderBy(s => s.NomeCompleto), "Id", "NomeCompleto");
-            ViewBag.MedicoId = new SelectList((await _medicoService.BuscarTodos()).OrderBy(s => s.NomeCompleto), "Id", "NomeCompleto");
+            ViewBag.ServiceId = new SelectList((await _servicoService.BuscarTodos()).OrderBy(s => s.Name), "Id", "Name");
+            ViewBag.PacienteId = new SelectList((await _pacienteService.BuscarTodos()).OrderBy(s => s.FullName), "Id", "FullName");
+            ViewBag.MedicoId = new SelectList((await _medicoService.BuscarTodos()).OrderBy(s => s.FullName), "Id", "FullName");
             return View();
         }
 
         // POST: AtendimentoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Atendimento atendimento)
+        public async Task<ActionResult> Create(Consult atendimento)
         {
             try
             {
@@ -62,9 +60,9 @@ namespace Consultorio.Web.Controllers
             }
             catch
             {
-                ViewBag.ServiceId = new SelectList((await _servicoService.BuscarTodos()).OrderBy(s => s.Nome), "Id", "Nome");
-                ViewBag.PacienteId = new SelectList((await _pacienteService.BuscarTodos()).OrderBy(s => s.NomeCompleto), "Id", "NomeCompleto");
-                ViewBag.MedicoId = new SelectList((await _medicoService.BuscarTodos()).OrderBy(s => s.NomeCompleto), "Id", "NomeCompleto");
+                ViewBag.ServiceId = new SelectList((await _servicoService.BuscarTodos()).OrderBy(s => s.Name), "Id", "Name");
+                ViewBag.PacienteId = new SelectList((await _pacienteService.BuscarTodos()).OrderBy(s => s.FullName), "Id", "FullName");
+                ViewBag.MedicoId = new SelectList((await _medicoService.BuscarTodos()).OrderBy(s => s.FullName), "Id", "FullName");
                 return View();
             }
             return RedirectToAction(nameof(Index));
@@ -72,7 +70,7 @@ namespace Consultorio.Web.Controllers
         }
 
         // GET: AtendimentoController/Edit/5
-        public async Task<ActionResult<Atendimento>> Edit(int id)
+        public async Task<ActionResult<Consult>> Edit(int id)
         {
             var result = await _atendimentoService.BuscarPorId(id);
 
@@ -80,9 +78,9 @@ namespace Consultorio.Web.Controllers
             {
                 if (result != null)
                 {
-                    ViewBag.ServiceId = new SelectList((await _servicoService.BuscarTodos()).OrderBy(s => s.Nome), "Id", "Nome");
-                    ViewBag.PacienteId = new SelectList((await _pacienteService.BuscarTodos()).OrderBy(s => s.NomeCompleto), "Id", "NomeCompleto");
-                    ViewBag.MedicoId = new SelectList((await _medicoService.BuscarTodos()).OrderBy(s => s.NomeCompleto), "Id", "NomeCompleto");
+                    ViewBag.ServiceId = new SelectList((await _servicoService.BuscarTodos()).OrderBy(s => s.Name), "Id", "Name");
+                    ViewBag.PacienteId = new SelectList((await _pacienteService.BuscarTodos()).OrderBy(s => s.FullName), "Id", "FullName");
+                    ViewBag.MedicoId = new SelectList((await _medicoService.BuscarTodos()).OrderBy(s => s.FullName), "Id", "FullName");
                     return View(result);
                 }
             }
@@ -96,7 +94,7 @@ namespace Consultorio.Web.Controllers
         // POST: AtendimentoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Atendimento editar)
+        public async Task<ActionResult> EditAsync(int id, Consult editar)
         {
             try
             {
@@ -119,7 +117,7 @@ namespace Consultorio.Web.Controllers
         }
 
         // GET: AtendimentoController/Delete/5
-        public async Task<ActionResult<Atendimento>> Delete(int id)
+        public async Task<ActionResult<Consult>> Delete(int id)
         {
             var result = await _atendimentoService.BuscarPorId(id);
 
