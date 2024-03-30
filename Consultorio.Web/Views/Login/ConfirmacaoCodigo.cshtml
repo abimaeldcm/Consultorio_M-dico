@@ -1,0 +1,53 @@
+﻿@model User
+@{
+    Layout = "_LayoutDeslogado";
+}
+
+@if (TempData["MensagemSucessoEnvio"] != null)
+{
+    <div id="myAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @TempData["MensagemSucessoEnvio"]
+    </div>
+}
+
+@if (TempData["CodigoIncorreto"] != null)
+{
+    <div id="myAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @TempData["CodigoIncorreto"]
+    </div>
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Primeiro Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        Validação de Código
+                    </div>
+                    <div class="card-body">
+                        <p class="text-center">Informe o código que chegou no e-mail cadastrado</p>
+                        <form asp-controller="Login" asp-action="ConfirmacaoCodigo" method="post">
+                            <div class="form-group">
+                                <label for="code">Código</label>
+                                <input type="text" class="form-control" name="codigo" required data-val-required="Por favor, digite o código" placeholder="Digite código">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

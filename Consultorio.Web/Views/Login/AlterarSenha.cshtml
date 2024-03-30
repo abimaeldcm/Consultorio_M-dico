@@ -1,0 +1,67 @@
+﻿@model User
+@{
+    Layout = "_LayoutDeslogado";
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Primeiro Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div id="myAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        Validação de Código
+                    </div>
+                    <div class="card-body">
+                        <p class="text-center">Alterar senha</p>
+                        <form asp-controller="Login" asp-action="AlterarSenha" method="post" onsubmit="return validatePasswords()">
+                            <div class="form-group">
+                                <label for="password">Nova Senha</label>
+                                <input type="password" class="form-control" name="NovaSenha" id="novaSenha" required placeholder="Nova senha">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Confirmar Nova Senha</label>
+                                <input type="password" class="form-control" name="ConfirmarNovaSenha" id="confirmarNovaSenha" required placeholder="Confirmar nova senha">
+                                <span id="senhaMismatch" class="text-danger" style="display: none;">As senhas não correspondem.</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function validatePasswords() {
+        var novaSenha = document.getElementById("novaSenha").value;
+        var confirmarNovaSenha = document.getElementById("confirmarNovaSenha").value;
+        var senhaMismatch = document.getElementById("senhaMismatch");
+
+        if (novaSenha !== confirmarNovaSenha) {
+            senhaMismatch.style.display = "block"; // Exibe a mensagem de erro
+            return false;
+        }
+
+        senhaMismatch.style.display = "none"; // Esconde a mensagem de erro
+        return true;
+    }
+</script>

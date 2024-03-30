@@ -21,26 +21,33 @@
             @Html.DisplayNameFor(model => model.IdPatient)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdPatient)
+            @Html.DisplayFor(model => model.Patient.FullName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IdService)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdService)
+            @Html.DisplayFor(model => model.Service.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IdDoctor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdDoctor)
+            @Html.DisplayFor(model => model.Doctor.FullName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Convenio)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Convenio)
-        </dd>
+        <dd class="col-sm-10">
+            @if (Model.Convenio == 1)
+            {
+                <p>Sim</p>
+            }
+            else
+            {
+                <p>Não</p>
+            }
+        </dd>        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Start)
         </dt>

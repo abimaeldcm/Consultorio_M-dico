@@ -1,12 +1,16 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.ComponentModel.DataAnnotations;
 
 namespace Consultorio.Web.Models
 {
-    public class Doctor : User
+    public class Doctor : Person
     {
-        public string RegistroCRM { get; set; }
+        [Display(Name = "CRM")]
+        public string RegisterCRM { get; set; }
 
-        public int IdSpecialty { get; set; }
-        public Specialty Specialty { get; set; }
+        public int IdSpeciality { get; set; }
+
+        [Display(Name = "Especialidade")]
+        public Speciality Speciality { get; set; }
     }
 }

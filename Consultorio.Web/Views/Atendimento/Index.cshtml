@@ -4,57 +4,107 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<head>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
+    <!-- Style -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="@Url.Content("~/assets/css/fresh-bootstrap-table.css")" rel="stylesheet" />
 
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Patient)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Service)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doctor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Any())
-        {
-            @foreach (var item in Model)
-            {
-                <tr>
+    <!-- Fonts and icons -->
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Patient.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Service.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Doctor.FullName)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { item.Id })
-                    </td>
-                </tr>
+</head>
+<body>
+    <div class="fresh-table full-color-azure">
+        <!--
+          Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+          Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+        -->
+
+        <div class="toolbar">
+            <a class="btn btn-default" asp-action="Create">Criar novo</a>
+        </div>
+
+        <table id="fresh-table" class="table">
+            <thead>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Patient)</th>
+            <th>@Html.DisplayNameFor(model => model.Service)</th>
+            <th>@Html.DisplayNameFor(model => model.Doctor)</th>
+            <th data-field="" data-events="operateEvents">Actions</th>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Patient.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Doctor.FullName)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id = item.Id })">
+                                    <i class="fa fa-edit"></i>
+                                </a>|
+                                <a href="@Url.Action("Details", new { id = item.Id })">
+                                    <i class="fa fa-info-circle"></i>
+                                </a>|
+                                <a href="@Url.Action("Delete", new { id = item.Id })">
+                                    <i class="fa fa-trash"></i>
+                                </a>|
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+<!-- Javascript -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+
+<script type="text/javascript">
+    var $table = $('#fresh-table')
+    var $alertBtn = $('#alertBtn')
+
+
+
+    $(function () {
+        $table.bootstrapTable({
+            classes: 'table table-hover table-striped',
+            toolbar: '.toolbar',
+
+            search: true,
+            showToggle: true,
+            showColumns: true,
+            pagination: true,
+            striped: true,
+            sortable: true,
+            pageSize: 8,
+            pageList: [1, 8, 10, 25, 50, 100],
+
+            formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                return ''
+            },
+            formatRecordsPerPage: function (pageNumber) {
+                return pageNumber + ' linhas visíveis'
             }
-        }
+        })
 
-    </tbody>
-</table>
+    })
+
+</script>

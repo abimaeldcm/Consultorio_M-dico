@@ -1,10 +1,12 @@
-﻿using Consultorio.Web.Models;
+﻿using Consultorio.Web.Filters;
+using Consultorio.Web.Models;
 using Consultorio.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Consultorio.Web.Controllers
 {
+    [PaginaUsuarioLogado]
     public class AtendimentoController : Controller
     {
         private readonly ICRUD<Consult> _atendimentoService;

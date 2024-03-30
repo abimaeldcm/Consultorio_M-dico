@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Consultorio.Domain.Entity;
+using Consultorio.Domain.Entity.Email;
 using Consultorio.Domain.Entity.InputDTOs;
+using Consultorio.Domain.Entity.OutputDTOs;
 using Consultorio.Domain.Entity.OutPutDTOs;
 
 namespace Consultorio.Application.Mapping
@@ -12,8 +14,8 @@ namespace Consultorio.Application.Mapping
             CreateMap<ConsultInputDTO, Consult>();
             CreateMap<Consult, ConsultOutputDTO>();
 
-            CreateMap<SpecialityInputDTO, Specialty>();
-            CreateMap<Specialty, SpecialityOutputDTO>();
+            CreateMap<SpecialityInputDTO, Speciality>();
+            CreateMap<Speciality, SpecialityOutputDTO>();
 
             CreateMap<DoctorInputDTO, Doctor>();
             CreateMap<Doctor, DoctorOutputDTO>();
@@ -23,6 +25,12 @@ namespace Consultorio.Application.Mapping
 
             CreateMap<ServiceInputDTO, ServiceEntity>();
             CreateMap<ServiceEntity, ServiceOutputDTO>();
+            
+            CreateMap<EmailInputDTO, EmailEntity>();
+            CreateMap<EmailEntity, EmailOutputDTO>();
+
+            CreateMap<UserInputDTO, User>();
+            CreateMap<User, UserOutputDTO>();
             
         }
     }

@@ -1,9 +1,11 @@
-﻿using Consultorio.Web.Models;
+﻿using Consultorio.Web.Filters;
+using Consultorio.Web.Models;
 using Consultorio.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consultorio.Web.Controllers
 {
+    [PaginaUsuarioLogado]
     public class PacienteController : Controller
     {
 

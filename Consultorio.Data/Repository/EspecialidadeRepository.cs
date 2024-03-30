@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Consultorio.Infra.Data.Repository
 {
-    public class EspecialidadeRepository : ICRUDRepository<Specialty>
+    public class EspecialidadeRepository : ICRUDRepository<Speciality>
     {
         private readonly ConsultorioDbContext _context;
 
@@ -13,26 +13,26 @@ namespace Consultorio.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<Specialty> FindById(int id)
+        public async Task<Speciality> FindById(int id)
         {
-            return await _context.Specialty.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Speciality.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<List<Specialty>> FindByText(string query)
+        public async Task<List<Speciality>> FindByText(string query)
         {
-            return await _context.Specialty
-                                .Where(m => EF.Functions.Like(m.MedicalSpecialty, $"%{query}%"))
+            return await _context.Speciality
+                                .Where(m => EF.Functions.Like(m.MedicalSpeciality, $"%{query}%"))
                                 .ToListAsync();
         }
 
-        public async Task<List<Specialty>> GetAll()
+        public async Task<List<Speciality>> GetAll()
         {
-            return await _context.Specialty.ToListAsync();
+            return await _context.Speciality.ToListAsync();
         }
 
-        public async Task<Specialty> Create(Specialty create)
+        public async Task<Speciality> Create(Speciality create)
         {
-            await _context.Specialty.AddAsync(create);
+            await _context.Speciality.AddAsync(create);
             await _context.SaveChangesAsync();
 
             return create;
@@ -43,7 +43,7 @@ namespace Consultorio.Infra.Data.Repository
             try
             {
                 var especialidadeDb = await FindById(id);
-                _context.Specialty.Remove(especialidadeDb);
+                _context.Speciality.Remove(especialidadeDb);
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -55,9 +55,9 @@ namespace Consultorio.Infra.Data.Repository
             }
         }
 
-        public async Task<Specialty> Update(Specialty update)
+        public async Task<Speciality> Update(Speciality update)
         {
-            _context.Specialty.Update(update);
+            _context.Speciality.Update(update);
             await _context.SaveChangesAsync();
 
             return update;

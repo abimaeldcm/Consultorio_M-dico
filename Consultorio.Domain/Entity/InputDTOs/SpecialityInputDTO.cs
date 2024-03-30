@@ -2,6 +2,6 @@
 {
     public class SpecialityInputDTO
     {
-        public string MedicalSpecialty { get; set; }
+        public string MedicalSpeciality { get; set; }
     }
 }

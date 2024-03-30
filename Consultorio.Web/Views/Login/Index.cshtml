@@ -1,0 +1,102 @@
+﻿@model User
+@{
+    Layout = "_LayoutDeslogado";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div id="myAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @TempData["MensagemErro"]
+    </div>
+}
+@if (TempData["SenhaAlterada"] != null)
+{
+    <div id="myAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @TempData["SenhaAlterada"]
+    </div>
+}
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Tela de Login
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Login" asp-action="Logar" method="post">
+                            <div class="form-group">
+                                <label for="login">Login</label>
+                                <input type="text" class="form-control" asp-for="Name" id="Name" required data-val-required="Por favor, digite o seu e-mail" placeholder="Digite seu login">
+                                @Html.ValidationMessageFor(x => x.Name)
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" asp-for="Password" id="senha" required data-val-required="Por favor, digite a sua senha" placeholder="Digite sua senha">
+                                    <button type="button" id="toggleSenha" class="btn btn-secondary input-group-text" aria-label="Toggle Password Visibility">
+                                        <i class="bi bi-eye">&#9673;</i>
+                                    </button>
+                                </div>
+                                @Html.ValidationMessageFor(x => x.Password)
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>                            
+                        </form>
+                        <div class="mt-3">
+                            <a asp-controller="Login" asp-action="EsqueciSenha">Esqueci minha senha</a>
+                        </div>
+                        <div class="mt-3">
+                            <p>Primeiro acesso? <a asp-controller="Login" asp-action="PrimeiroLogin">Clique aqui</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // Fechar o alerta após 3 segundos
+    setTimeout(function () {
+        var alert = document.getElementById('myAlert');
+        alert.classList.remove('show'); // Remove a classe 'show' para ativar a animação de fade
+        setTimeout(function () {
+            alert.remove(); // Remove completamente o elemento do DOM após a animação de fade
+        }, 500); // Tempo correspondente à duração da animação de fade definida no CSS
+    }, 20000); // 20 segundos
+</script>
+</html>
+
+<script>
+    function togglePasswordVisibility() {
+        var senhaInput = document.getElementById('senha');
+        var toggleButton = document.getElementById('toggleSenha');
+        var eyeIcon = document.getElementById('eyeIcon');
+
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+            eyeIcon.classList.remove('bi-eye');
+            eyeIcon.classList.add('bi-eye-slash');
+            toggleButton.setAttribute('aria-label', 'Toggle Password Visibility (Hidden)');
+        } else {
+            senhaInput.type = 'password';
+            eyeIcon.classList.remove('bi-eye-slash');
+            eyeIcon.classList.add('bi-eye');
+            toggleButton.setAttribute('aria-label', 'Toggle Password Visibility');
+        }
+    }
+
+    var toggleButton = document.getElementById('toggleSenha');
+    toggleButton.addEventListener('click', togglePasswordVisibility);
+</script>

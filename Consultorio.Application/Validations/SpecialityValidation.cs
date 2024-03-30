@@ -8,7 +8,7 @@ namespace Consultorio.Application.Validations
     {
         public SpecialityValidation()
         {
-            RuleFor(e => e.MedicalSpecialty)
+            RuleFor(e => e.MedicalSpeciality)
                 .MaximumLength(100)
                 .WithMessage("Especialidade com o nome muito grande");
         }

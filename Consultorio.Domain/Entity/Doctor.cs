@@ -1,10 +1,10 @@
 ﻿namespace Consultorio.Domain.Entity
 {
-    public class Doctor : User
+    public class Doctor : Person
     {
         public string RegisterCRM { get; set; }
 
-        public int IdSpecialty { get; set; }        
-        public Specialty Specialty { get; set; }
+        public int IdSpeciality { get; set; }        
+        public Speciality Speciality { get; set; }
     }
 }

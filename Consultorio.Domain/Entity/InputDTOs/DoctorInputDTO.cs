@@ -1,8 +1,8 @@
 ﻿namespace Consultorio.Domain.Entity.InputDTOs
 {
-    public class DoctorInputDTO : User
+    public class DoctorInputDTO : Person
     {
         public string RegisterCRM { get; set; }
-        public int IdSpecialty { get; set; }
+        public int IdSpeciality { get; set; }
     }
 }

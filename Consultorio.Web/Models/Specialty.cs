@@ -3,11 +3,11 @@
 namespace Consultorio.Web.Models
 
 {
-    public class Specialty
+    public class Speciality
     {
         public int Id { get; set; }
 
         [Display(Name = "Especialidade Médica")]
-        public string MedicalSpecialty { get; set; }
+        public string MedicalSpeciality { get; set; }
     }
 }

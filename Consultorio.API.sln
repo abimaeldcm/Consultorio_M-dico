@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Domain", "Consu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Application", "Consultorio.Application\Consultorio.Application.csproj", "{E6FA9D88-584E-4A6B-818C-902A3F59335D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consultorio.Web", "Consultorio.Web\Consultorio.Web.csproj", "{C03CCC83-E8D9-425C-A08A-86149241D3F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consultorio.Web", "Consultorio.Web\Consultorio.Web.csproj", "{C03CCC83-E8D9-425C-A08A-86149241D3F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

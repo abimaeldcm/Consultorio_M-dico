@@ -3,9 +3,13 @@ using Consultorio.Application.Email;
 using Consultorio.Application.Interface;
 using Consultorio.Application.Mapping;
 using Consultorio.Application.Service;
+using Consultorio.Application.Services;
+using Consultorio.Application.Services.WorkService;
 using Consultorio.Application.Validations;
 using Consultorio.Domain.Entity;
+using Consultorio.Domain.Entity.Email;
 using Consultorio.Domain.Entity.InputDTOs;
+using Consultorio.Domain.Entity.OutputDTOs;
 using Consultorio.Domain.Entity.OutPutDTOs;
 using Consultorio.Infra.Data;
 using Consultorio.Infra.Data.Interfaces;
@@ -34,7 +38,7 @@ namespace Consultorio.Infra.IoC
             
             //Espacialidade
             services.AddScoped<ICRUDService<SpecialityOutputDTO,SpecialityInputDTO>, SpecialityService>();
-            services.AddScoped<ICRUDRepository<Specialty>, EspecialidadeRepository>();
+            services.AddScoped<ICRUDRepository<Speciality>, EspecialidadeRepository>();
 
             //Médico
             services.AddScoped<ICRUDService<DoctorOutputDTO,DoctorInputDTO>, DoctorService>();
@@ -48,12 +52,23 @@ namespace Consultorio.Infra.IoC
             services.AddScoped<ICRUDService<ServiceOutputDTO,ServiceInputDTO>, ServiceService>();
             services.AddScoped<ICRUDRepository<ServiceEntity>, ServiceRepository>();
 
-            services.AddScoped<ICRUDRepository<ServiceEntity>, ServiceRepository>();
+            //Email
+            services.AddScoped<ICRUDService<EmailOutputDTO, EmailInputDTO>,EmailService >();
+            services.AddScoped<ICRUDRepository<EmailEntity>, EmailRepository>();
+            
+            //User
+            services.AddScoped<ICRUDService<UserOutputDTO, UserInputDTO>, UserService>();
+            services.AddScoped<ICRUDRepository<User>, UserRepository>();
+            services.AddScoped<ILoginService, UserService>();
+            services.AddScoped<ILoginRepository, UserRepository>();
 
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SpecialityValidation>());
 
-            services.AddScoped<ISeedEmail, SeedEmail>();
+            services.AddSingleton<ISeedEmail, SeedEmail>();
+            services.AddScoped<IGoogleCalendarService, GoogleCalendarService>();
 
+
+            services.AddHostedService<Worker>();
 
             return services;
 

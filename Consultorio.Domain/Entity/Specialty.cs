@@ -1,8 +1,8 @@
 ﻿namespace Consultorio.Domain.Entity
 {
-    public class Specialty
+    public class Speciality
     {
         public int Id { get; set; }
-        public string MedicalSpecialty { get; set; }
+        public string MedicalSpeciality { get; set; }
     }
 }

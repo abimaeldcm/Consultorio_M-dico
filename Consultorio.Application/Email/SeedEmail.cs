@@ -68,7 +68,7 @@ namespace Consultorio.Application.Email
             var msg = new StringBuilder();
             msg.AppendLine("From: Consultório Médico <abimaelnagato@gmail.com>");
             msg.AppendLine("To: Teste <" + email + ">");
-            msg.AppendLine("Subject: " + Encoding.UTF8.GetBytes(assunto));
+            msg.AppendLine("Subject:" + assunto);
             msg.AppendLine("Content-Type: text/html; charset=utf-8");
             msg.AppendLine();
             msg.AppendLine(mensagem);

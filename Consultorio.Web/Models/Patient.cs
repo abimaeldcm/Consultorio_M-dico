@@ -2,7 +2,7 @@
 
 namespace Consultorio.Web.Models
 {
-    public class Patient : User
+    public class Patient : Person
     {
         [Display(Name = "Altura")]
         public double? Height { get; set; }

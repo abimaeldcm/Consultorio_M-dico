@@ -90,7 +90,7 @@ namespace Consultorio.Infra.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("IdSpecialty")
+                    b.Property<int>("IdSpeciality")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -115,7 +115,7 @@ namespace Consultorio.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSpecialty");
+                    b.HasIndex("IdSpeciality");
 
                     b.ToTable("Doctors");
 
@@ -128,7 +128,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 4,
                             CPF = "06445663225",
                             Email = "AntonioCaudas@email.com",
-                            IdSpecialty = 1,
+                            IdSpeciality = 1,
                             LastName = "Pereira Caudas",
                             Name = "Antônio Pereira Caudas",
                             PhoneNumber = "86995287928",
@@ -142,7 +142,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 7,
                             CPF = "09876543210",
                             Email = "joao.silva@email.com",
-                            IdSpecialty = 2,
+                            IdSpeciality = 2,
                             LastName = "da Silva",
                             Name = "João da Silva",
                             PhoneNumber = "86995554433",
@@ -156,7 +156,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 5,
                             CPF = "11223344556",
                             Email = "maria.oliveira@email.com",
-                            IdSpecialty = 2,
+                            IdSpeciality = 2,
                             LastName = "Oliveira",
                             Name = "Maria Oliveira",
                             PhoneNumber = "869944332211",
@@ -170,7 +170,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 6,
                             CPF = "55443322111",
                             Email = "carlos.souza@email.com",
-                            IdSpecialty = 4,
+                            IdSpeciality = 4,
                             LastName = "Souza",
                             Name = "Carlos Souza",
                             PhoneNumber = "869966998877",
@@ -184,7 +184,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 5,
                             CPF = "33445566778",
                             Email = "ana.santos@email.com",
-                            IdSpecialty = 5,
+                            IdSpeciality = 5,
                             LastName = "Santos",
                             Name = "Ana Santos",
                             PhoneNumber = "869977776655",
@@ -198,7 +198,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 2,
                             CPF = "99887766554",
                             Email = "pedro.moraes@email.com",
-                            IdSpecialty = 6,
+                            IdSpeciality = 6,
                             LastName = "Moraes",
                             Name = "Pedro Moraes",
                             PhoneNumber = "869988887766",
@@ -212,7 +212,7 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 5,
                             CPF = "22113344556",
                             Email = "fernanda.costa@email.com",
-                            IdSpecialty = 7,
+                            IdSpeciality = 7,
                             LastName = "Costa",
                             Name = "Fernanda Costa",
                             PhoneNumber = "869933377755",
@@ -226,12 +226,33 @@ namespace Consultorio.Infra.Data.Migrations
                             BloodType = 4,
                             CPF = "77889900123",
                             Email = "rafaela.lima@email.com",
-                            IdSpecialty = 8,
+                            IdSpeciality = 8,
                             LastName = "Lima",
                             Name = "Rafaela Lima",
                             PhoneNumber = "869922223344",
                             RegisterCRM = "54321/PI"
                         });
+                });
+
+            modelBuilder.Entity("Consultorio.Domain.Entity.Email.EmailEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Emails");
                 });
 
             modelBuilder.Entity("Consultorio.Domain.Entity.Patient", b =>
@@ -431,7 +452,7 @@ namespace Consultorio.Infra.Data.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Consultorio.Domain.Entity.Specialty", b =>
+            modelBuilder.Entity("Consultorio.Domain.Entity.Speciality", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -439,65 +460,90 @@ namespace Consultorio.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("MedicalSpecialty")
+                    b.Property<string>("MedicalSpeciality")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specialty");
+                    b.ToTable("Speciality");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            MedicalSpecialty = "Clínico Geral"
+                            MedicalSpeciality = "Clínico Geral"
                         },
                         new
                         {
                             Id = 2,
-                            MedicalSpecialty = "Cardiologia"
+                            MedicalSpeciality = "Cardiologia"
                         },
                         new
                         {
                             Id = 3,
-                            MedicalSpecialty = "Pediatria"
+                            MedicalSpeciality = "Pediatria"
                         },
                         new
                         {
                             Id = 4,
-                            MedicalSpecialty = "Ortopedia"
+                            MedicalSpeciality = "Ortopedia"
                         },
                         new
                         {
                             Id = 5,
-                            MedicalSpecialty = "Dermatologia"
+                            MedicalSpeciality = "Dermatologia"
                         },
                         new
                         {
                             Id = 6,
-                            MedicalSpecialty = "Oftalmologia"
+                            MedicalSpeciality = "Oftalmologia"
                         },
                         new
                         {
                             Id = 7,
-                            MedicalSpecialty = "Psiquiatria"
+                            MedicalSpeciality = "Psiquiatria"
                         },
                         new
                         {
                             Id = 8,
-                            MedicalSpecialty = "Ginecologia"
+                            MedicalSpeciality = "Ginecologia"
                         },
                         new
                         {
                             Id = 9,
-                            MedicalSpecialty = "Urologia"
+                            MedicalSpeciality = "Urologia"
                         },
                         new
                         {
                             Id = 10,
-                            MedicalSpecialty = "Neurologia"
+                            MedicalSpeciality = "Neurologia"
                         });
+                });
+
+            modelBuilder.Entity("Consultorio.Domain.Entity.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Consultorio.Domain.Entity.Consult", b =>
@@ -529,13 +575,13 @@ namespace Consultorio.Infra.Data.Migrations
 
             modelBuilder.Entity("Consultorio.Domain.Entity.Doctor", b =>
                 {
-                    b.HasOne("Consultorio.Domain.Entity.Specialty", "Specialty")
+                    b.HasOne("Consultorio.Domain.Entity.Speciality", "Speciality")
                         .WithMany()
-                        .HasForeignKey("IdSpecialty")
+                        .HasForeignKey("IdSpeciality")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Specialty");
+                    b.Navigation("Speciality");
                 });
 #pragma warning restore 612, 618
         }

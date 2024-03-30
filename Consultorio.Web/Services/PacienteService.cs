@@ -8,7 +8,7 @@ namespace Consultorio.Web.Services
     public class PacienteService : ICRUD<Patient>
     {
         private readonly IHttpClientFactory _ClientFactory;
-        private const string apiEndpoint = "api/Paciente/";
+        private const string apiEndpoint = "api/Patient/";
         private readonly JsonSerializerOptions _options;
         private Patient paciente;
         private IEnumerable<Patient> pacientes;

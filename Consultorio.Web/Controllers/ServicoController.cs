@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Consultorio.Web.Filters;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Consultorio.Web.Controllers
 {
+    [PaginaUsuarioLogado]
     public class ServicoController : Controller
     {
         // GET: ServicoController

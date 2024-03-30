@@ -3,25 +3,33 @@ using Consultorio.Application.Calendario;
 using Consultorio.Application.Email;
 using Consultorio.Application.Interface;
 using Consultorio.Domain.Entity;
+using Consultorio.Domain.Entity.Email;
 using Consultorio.Domain.Entity.InputDTOs;
 using Consultorio.Domain.Entity.OutPutDTOs;
 using Consultorio.Infra.Data.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace Consultorio.Application.Service
 {
     public class ConsultService : ICRUDService<ConsultOutputDTO, ConsultInputDTO>
     {
+        private readonly IConfiguration _configuration;
         private readonly ICRUDRepository<Consult> _repository;
         private readonly ICRUDRepository<Patient> _patientRepository;
         private readonly IMapper _mapper;
         private readonly ISeedEmail _enviarEmail;
+        private readonly ICRUDRepository<EmailEntity> _emailRepository;
+        private readonly IGoogleCalendarService _googleCalendarServico;
 
-        public ConsultService(ICRUDRepository<Consult> repository, ICRUDRepository<Patient> patientRepository, IMapper mapper, ISeedEmail enviarEmail)
+        public ConsultService(IConfiguration configuration, ICRUDRepository<Consult> repository, ICRUDRepository<Patient> patientRepository, IMapper mapper, ISeedEmail enviarEmail, ICRUDRepository<EmailEntity> emailRepository, IGoogleCalendarService googleCalendarServico)
         {
+            _configuration = configuration;
             _repository = repository;
             _patientRepository = patientRepository;
             _mapper = mapper;
             _enviarEmail = enviarEmail;
+            _emailRepository = emailRepository;
+            _googleCalendarServico = googleCalendarServico;
         }
 
         public async Task<ConsultOutputDTO> FindById(int id)
@@ -56,21 +64,18 @@ namespace Consultorio.Application.Service
             var consultDb_Include = await _repository.FindById(consultDb.Id);
 
             //Seed E-mail
-            var resultado = await _enviarEmail.Seed(
-                consultDb_Include.Patient.Email,
-                $"Confirmação de Agendamento de consulta: {consultDb_Include.Service.Name}.",
-                $"Prezado(a), {consultDb_Include.Patient.Name} <br> " +
-                $"É com satisfação que informamos a confirmação do agendamento da sua consulta para o dia {consultDb_Include.Start.Date.ToString("dd/MM/yyyy")} às {consultDb_Include.Start.ToString("HH:mm")}.<br> " +
-                $"A consulta será realizada em nosso consultório localizado na Rua dos Bobos, Nº 0 <br> " +
-                $"Pedimos que chegue com pelo menos 15 minutos de antecedência para que possamos realizar o seu atendimento de forma pontual. Caso haja qualquer impedimento ou necessidade de reagendamento, pedimos a gentileza de entrar em contato conosco o mais breve possível.<br>" +
-                $"Estamos à disposição para esclarecer qualquer dúvida que possa surgir. Agradecemos pela confiança em nossos serviços e estamos ansiosos para atendê-lo(a) em breve.<br> <br>" +
-                $"Atenciosamente, <br>" +
-                $"Clínica Médica <br>" +
-                $"(86) 9 9011-2255"
-                );
+            var emailDb = await _emailRepository.FindById(1);
+            var emailSubject = emailDb.Title
+                .Replace("{{1}}", consultDb_Include.Service.Name);
+            var emailBody = emailDb.Body
+                .Replace("{{1}}", consultDb_Include.Patient.Name)
+                .Replace("{{2}}", consultDb_Include.Start.Date.ToString("dd/MM/yyyy"))
+                .Replace("{{3}}", consultDb_Include.Start.ToString("HH:mm")) ;
+
+            var resultado = await _enviarEmail.Seed(consultDb_Include.Patient.Email, emailSubject, emailBody);
 
             //Send Schedule
-            var schedule = await GoogleCalendarServico.CreateGoogleCalendar(
+            var schedule = await _googleCalendarServico.CreateGoogleCalendar(
                 new GoogleCalendar { 
                     Summary= $"Consulta: {consultDb_Include.Service.Name}", 
                     Description= "", 
@@ -100,7 +105,7 @@ namespace Consultorio.Application.Service
                 var result = await _repository.Delete(id);
                 if (result is true)
                 {
-                    await GoogleCalendarServico.DeleteEventGoogleCalendar(consultToDelete.IdentifiedGoogleCalendar);
+                    await _googleCalendarServico.DeleteEventGoogleCalendar(consultToDelete.IdentifiedGoogleCalendar);
                 }
                 return result;
             }
@@ -139,7 +144,7 @@ namespace Consultorio.Application.Service
                 $"(86) 9 9011-2255"
                 );
 
-            var consultUpdate = await GoogleCalendarServico.UpdateEventGoogleCalendar(buscarDb.IdentifiedGoogleCalendar, $"Consulta: {consultDb_Include.Service.Name}", consultDb_Include.Start, consultDb_Include.End);
+            var consultUpdate = await _googleCalendarServico.UpdateEventGoogleCalendar(buscarDb.IdentifiedGoogleCalendar, $"Consulta: {consultDb_Include.Service.Name}", consultDb_Include.Start, consultDb_Include.End);
             ConsultOutputDTO consultMap = _mapper.Map<ConsultOutputDTO>(consultDb);
 
             return consultMap;

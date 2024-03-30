@@ -15,7 +15,7 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<Doctor> FindById(int id)
         {
-            return await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Doctors.AsNoTracking().Include(x => x.Speciality).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<List<Doctor>> FindByText(string query)
@@ -31,7 +31,16 @@ namespace Consultorio.Infra.Data.Repository
 
         public async Task<List<Doctor>> GetAll()
         {
-            return await _context.Doctors.ToListAsync();
+            try
+            {
+                return await _context.Doctors.Include(x => x.Speciality).ToListAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<Doctor> Create(Doctor create)
