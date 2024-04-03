@@ -1,6 +1,7 @@
 using Consultorio.Web.Filters;
 using Consultorio.Web.Helper;
 using Consultorio.Web.Models;
+using Consultorio.Web.Services;
 using Consultorio.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +13,21 @@ namespace Consultorio.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ILoginService _loginService;
         private readonly ISessao _sessao;
+        private readonly ICRUD<Consult> _atendimentoService;
 
-        public HomeController(ILogger<HomeController> logger, ILoginService loginService, ISessao sessao)
+        public HomeController(ILogger<HomeController> logger, ILoginService loginService, ISessao sessao, ICRUD<Consult> atendimentoService)
         {
             _logger = logger;
             _loginService = loginService;
             _sessao = sessao;
+            _atendimentoService = atendimentoService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var listaItens = await _atendimentoService.BuscarTodos();
+
+            return View(listaItens);
         }
         public IActionResult Sair()
         {

@@ -130,7 +130,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "AntonioCaudas@email.com",
                             IdSpeciality = 1,
                             LastName = "Pereira Caudas",
-                            Name = "Antônio Pereira Caudas",
+                            Name = "Antônio",
                             PhoneNumber = "86995287928",
                             RegisterCRM = "12345/PI"
                         },
@@ -144,7 +144,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "joao.silva@email.com",
                             IdSpeciality = 2,
                             LastName = "da Silva",
-                            Name = "João da Silva",
+                            Name = "João",
                             PhoneNumber = "86995554433",
                             RegisterCRM = "54321/PI"
                         },
@@ -158,7 +158,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "maria.oliveira@email.com",
                             IdSpeciality = 2,
                             LastName = "Oliveira",
-                            Name = "Maria Oliveira",
+                            Name = "Maria",
                             PhoneNumber = "869944332211",
                             RegisterCRM = "67890/PI"
                         },
@@ -172,7 +172,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "carlos.souza@email.com",
                             IdSpeciality = 4,
                             LastName = "Souza",
-                            Name = "Carlos Souza",
+                            Name = "Carlos",
                             PhoneNumber = "869966998877",
                             RegisterCRM = "13579/PI"
                         },
@@ -186,7 +186,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "ana.santos@email.com",
                             IdSpeciality = 5,
                             LastName = "Santos",
-                            Name = "Ana Santos",
+                            Name = "Ana",
                             PhoneNumber = "869977776655",
                             RegisterCRM = "24680/PI"
                         },
@@ -200,7 +200,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "pedro.moraes@email.com",
                             IdSpeciality = 6,
                             LastName = "Moraes",
-                            Name = "Pedro Moraes",
+                            Name = "Pedro",
                             PhoneNumber = "869988887766",
                             RegisterCRM = "97531/PI"
                         },
@@ -214,7 +214,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "fernanda.costa@email.com",
                             IdSpeciality = 7,
                             LastName = "Costa",
-                            Name = "Fernanda Costa",
+                            Name = "Fernanda",
                             PhoneNumber = "869933377755",
                             RegisterCRM = "86420/PI"
                         },
@@ -228,7 +228,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "rafaela.lima@email.com",
                             IdSpeciality = 8,
                             LastName = "Lima",
-                            Name = "Rafaela Lima",
+                            Name = "Rafaela",
                             PhoneNumber = "869922223344",
                             RegisterCRM = "54321/PI"
                         });
@@ -319,7 +319,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "maria.silva@email.com",
                             Height = 1.3600000000000001,
                             LastName = "da Silva",
-                            Name = "Maria da Silva",
+                            Name = "Maria",
                             PhoneNumber = "869988776655",
                             Weight = 70.0
                         },
@@ -333,7 +333,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "jose.santos@email.com",
                             Height = 1.8,
                             LastName = "Santos",
-                            Name = "José Santos",
+                            Name = "José",
                             PhoneNumber = "869977665544",
                             Weight = 85.0
                         },
@@ -347,7 +347,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "ana.souza@email.com",
                             Height = 1.6499999999999999,
                             LastName = "Souza",
-                            Name = "Ana Souza",
+                            Name = "Ana",
                             PhoneNumber = "869966554433",
                             Weight = 60.0
                         },
@@ -361,7 +361,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "carlos.oliveira@email.com",
                             Height = 1.7,
                             LastName = "Oliveira",
-                            Name = "Carlos Oliveira",
+                            Name = "Carlos",
                             PhoneNumber = "869955443322",
                             Weight = 75.0
                         },
@@ -375,7 +375,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "mariana.costa@email.com",
                             Height = 1.6000000000000001,
                             LastName = "Costa",
-                            Name = "Mariana Costa",
+                            Name = "Mariana",
                             PhoneNumber = "869944332211",
                             Weight = 65.0
                         },
@@ -389,7 +389,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "rafael.oliveira@email.com",
                             Height = 1.8500000000000001,
                             LastName = "Oliveira",
-                            Name = "Rafael Oliveira",
+                            Name = "Rafael",
                             PhoneNumber = "869933221100",
                             Weight = 80.0
                         },
@@ -403,7 +403,7 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "juliana.lima@email.com",
                             Height = 1.75,
                             LastName = "Lima",
-                            Name = "Juliana Lima",
+                            Name = "Juliana",
                             PhoneNumber = "869922110011",
                             Weight = 70.0
                         },
@@ -417,8 +417,22 @@ namespace Consultorio.Infra.Data.Migrations
                             Email = "fernando.santos@email.com",
                             Height = 1.8,
                             LastName = "Santos",
-                            Name = "Fernando Santos",
+                            Name = "Fernando",
                             PhoneNumber = "869911001122",
+                            Weight = 85.0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "Av. das Estrelas, Nº 75",
+                            BirthDate = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = 5,
+                            CPF = "89012345678",
+                            Email = "abimaelmends@hotmail.com",
+                            Height = 1.8,
+                            LastName = "Mendes",
+                            Name = "Abimael",
+                            PhoneNumber = "86995287928",
                             Weight = 85.0
                         });
                 });
@@ -450,6 +464,88 @@ namespace Consultorio.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Atendimento médico geral para pacientes de todas as idades.",
+                            Duration = 60,
+                            Name = "Clínico Geral",
+                            Value = 150m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Especialidade médica que se ocupa do diagnóstico e tratamento das doenças que acometem o coração.",
+                            Duration = 60,
+                            Name = "Cardiologia",
+                            Value = 200m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Especialidade médica dedicada à assistência à criança e ao adolescente, nos seus diversos aspectos, sejam eles preventivos ou curativos.",
+                            Duration = 45,
+                            Name = "Pediatria",
+                            Value = 120m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Especialidade médica que cuida das doenças e deformidades dos ossos, músculos, ligamentos e articulações.",
+                            Duration = 45,
+                            Name = "Ortopedia",
+                            Value = 180m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Especialidade médica que cuida da saúde da pele, cabelos e unhas.",
+                            Duration = 30,
+                            Name = "Dermatologia",
+                            Value = 100m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Especialidade médica que trata das doenças relacionadas com os olhos e com a visão.",
+                            Duration = 30,
+                            Name = "Oftalmologia",
+                            Value = 150m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Especialidade médica que lida com a prevenção, atendimento, diagnóstico, tratamento e reabilitação das diferentes formas de sofrimentos mentais, sejam elas de cunho orgânico ou funcional.",
+                            Duration = 60,
+                            Name = "Psiquiatria",
+                            Value = 250m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Especialidade médica que trata da saúde da mulher, especialmente do sistema reprodutor feminino.",
+                            Duration = 45,
+                            Name = "Ginecologia",
+                            Value = 180m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Especialidade médica que trata do trato urinário de homens e mulheres e do sistema reprodutor dos homens.",
+                            Duration = 45,
+                            Name = "Urologia",
+                            Value = 200m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Especialidade médica que trata dos distúrbios estruturais do sistema nervoso.",
+                            Duration = 60,
+                            Name = "Neurologia",
+                            Value = 220m
+                        });
                 });
 
             modelBuilder.Entity("Consultorio.Domain.Entity.Speciality", b =>

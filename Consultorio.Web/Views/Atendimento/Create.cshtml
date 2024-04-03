@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
+<head></head>
 <body>
     <h1>Create</h1>
 
@@ -36,6 +37,25 @@
                         <option value="0">Não</option>
                     </select>
                     <span asp-validation-for="Convenio" class="text-danger"></span>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker();
+                            });
+                        </script>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Start" class="control-label"></label>

@@ -26,7 +26,6 @@ namespace Consultorio.Web.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                TempData["MensagemSucesso"] = "Por favor! Realizar login";
                 return View();
 
             }

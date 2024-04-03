@@ -1,0 +1,273 @@
+﻿@model IEnumerable<Consultorio.Web.Models.Patient>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/tabela.css" />
+<link rel="stylesheet" href="~/css/ModelDetails.css" />
+<link rel="stylesheet" href="~/css/ModelDelete.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <a asp-action="Create" class="btn btn-sm btn-primary pull-left"><i class="fa fa-plus-circle"></i> Criar</a>
+                            <form class="form-horizontal pull-right">
+                                <div class="form-group">
+                                    <label>Show : </label>
+                                    <select class="form-control">
+                                        <option>5</option>
+                                        <option>10</option>
+                                        <option>15</option>
+                                        <option>20</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ações</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FullName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                                </th>
+                                <th>Detalhes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <ul class="action-list">
+                                            <li>
+                                                <a asp-action="Edit" asp-controller="Paciente" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            </li>
+                                            <li><a href="#ModalDelete_@item.Id" data-toggle="modal" class="btn btn-danger"><i class="fa fa-times"></i></a></li>
+                                            <!-- Modal Delete -->
+                                            <div id="ModalDelete_@item.Id" class="modal fade">
+                                                <div class="modal-dialog modal-confirm">
+                                                    <div class="modal-content">
+                                                        <div class="modal-headerDelete flex-column">
+                                                            <div class="icon-box">
+                                                                <i class="material-icons">&#xE5CD;</i>
+                                                            </div>
+                                                            <h4 class="modal-title w-100">Tem certeza?</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Realmemente deseja excluir o paciente @item.FullName? Esta ação não é reversível.</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                            <form asp-controller="Medico" asp-action="Delete" method="post">
+                                                                <input type="hidden" name="id" value="@item.Id" />
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    </td>
+                                    <td>
+                                        <a data-toggle="modal" data-target="#model_@item.Id" class="btn btn-sm btn-success"><i class="fa fa-search"></i></a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="model_@item.Id" tabindex="-1" aria-labelledby="modelLabel_@item.Id" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modelLabel_@item.Id">Informações</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+
+                                                        <div class="row g-0">
+
+                                                            <div class="col-md-8 border-right">
+
+                                                                <div class="status p-5">
+
+                                                                    <table class="table table-borderless">
+
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td>
+                                                                                    <div class="d-flex flex-column">
+
+                                                                                        <span class="heading d-block">Hospital</span>
+                                                                                        <span class="subheadings">Clínica Médica</span>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="d-flex flex-column">
+
+                                                                                        <span class="heading d-block">Especialidade</span>
+                                                                                        <span class="subheadings">@item.PhoneNumber</span>
+
+
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+
+                                                                                <td>
+                                                                                    <div class="d-flex flex-column">
+                                                                                        <span class="heading d-block">E-mail</span>
+                                                                                        <a href="mailto:@item.Email" class="subheadings">@item.Email</a>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="d-flex flex-column">
+
+                                                                                        <span class="heading d-block">Registro CRM</span>
+                                                                                        <span class="subheadings">@item.Name</span>
+
+
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="d-flex flex-column">
+                                                                                        <span class="heading d-block">Endereço</span>
+                                                                                        <span class="subheadings">@item.Address</span>
+                                                                                    </div>
+                                                                                </td>
+
+                                                                                <td colspan="2">
+                                                                                </td>
+
+
+                                                                            </tr>
+
+
+                                                                        </tbody>
+                                                                    </table>
+
+
+
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                            <div class="col-md-4">
+
+                                                                <div class="p-2 text-center">
+
+                                                                    <div class="profile">
+
+                                                                        <img src="https://i.imgur.com/VfRSLTm.jpg" width="100" class="rounded-circle img-thumbnail">
+
+                                                                        <span class="d-block mt-3 font-weight-bold">@item.FullName</span>
+
+                                                                    </div>
+
+                                                                    <div class="about-doctor">
+
+                                                                        <table class="table table-borderless">
+
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div class="d-flex flex-column">
+
+                                                                                            <span class="heading d-block">CPF</span>
+                                                                                            <span class="subheadings">@item.CPF</span>
+
+
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <div class="d-flex flex-column">
+
+                                                                                            <span class="heading d-block">Telefone</span>
+                                                                                            <span class="subheadings">@item.PhoneNumber</span>
+
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+
+
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div class="d-flex flex-column">
+
+                                                                                            <span class="heading d-block">Data de Nascimento</span>
+                                                                                            <span class="subheadings">@item.BirthDate.ToString("dd/MM/yyyy")</span>
+
+
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <div class="d-flex flex-column">
+
+                                                                                            <span class="heading d-block">Tipo Sanguíneo</span>
+                                                                                            <span class="subheadings">@item.BloodType.ToString()</span>
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

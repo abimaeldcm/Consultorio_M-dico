@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Consultorio.Web.Models.Consult>
+@{
+    Layout = null;
+}
+@{
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/Carrosel.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    
+    <div class="row position-relative mt-n1-9 p-3">
+        <h3>Consultas o dia</h3>
+        @foreach (var item in Model.Where(x => x.Start.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy") && x.Start >= DateTime.Now).OrderBy(x => x.Start))
+        {
+            <div class="col-md-6 col-lg-4 mt-1-9 pb-5">
+                <div class="team-style1 text-center">
+                    <img src="~/images/CapasConsulta/@{@item.Service.Id}.jpg" class="border-radius-5" alt="...">
+                    <div class="team-info">
+                        <h3 class="text-primary mb-1 h4">@item.Service.Name</h3>
+                        <span class="font-weight-600 text-secondary">@item.Patient.Name</span>
+                        <br />
+                        <span class="font-weight-600 text-secondary">@item.Start.ToString("hh:mm")</span>
+                    </div>
+                    <div class="team-overlay">
+                        <div class="d-table h-100 w-100">
+                            <div class="d-table-cell align-middle">
+                                <h3><a href="#" class="text-white">Paciente: @item.Patient.FullName</a></h3>
+                                <h3><a href="#" class="text-white">Médico(a): @item.Doctor.FullName</a></h3>
+                                <p class="text-white mb-0">Serviço: @item.Service.Name</p>
+                                <p class="text-white mb-0">Início: @item.Start.ToString("hh:mm")</p>
+                                <p class="text-white mb-0">Fim: @item.End.ToString("hh:mm")</p>
+                                <ul class="social-icon-style1">
+                                    <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#!"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#!"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+</body>
+<script src="~/js/CarroselHome.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</html>

@@ -1,0 +1,54 @@
+﻿body {
+    font-family: 'Quicksand', sans-serif;
+    background: #eee;
+}
+
+
+
+.close:focus {
+    outline: 1px dotted #fff !important;
+}
+
+.modal-body {
+    padding: 0rem !important;
+}
+
+.modal-title {
+    color: #fff;
+}
+
+.modal-header {
+    background: #1b2842;
+    color: #fff !important;
+}
+
+.fa-close {
+    color: #fff;
+}
+
+.heading {
+    font-weight: 500 !important;
+}
+
+.subheadings {
+    font-size: 12px;
+    color: #9c27b0;
+}
+
+
+.dots {
+    height: 10px;
+    width: 10px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.gallery img {
+    margin-right: 10px;
+}
+
+.fs-9 {
+    font-size: 9px;
+}

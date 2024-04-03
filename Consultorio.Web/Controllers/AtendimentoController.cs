@@ -3,6 +3,7 @@ using Consultorio.Web.Models;
 using Consultorio.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Consultorio.Web.Controllers
 {
@@ -136,8 +137,9 @@ namespace Consultorio.Web.Controllers
                 await _atendimentoService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception erro)
             {
+                TempData["MensagemErro"] = "Ops!! Não conseguimos realizar o Logoff! Destalhes:" + erro.Message;
                 return View();
             }
         }

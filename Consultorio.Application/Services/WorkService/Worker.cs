@@ -50,7 +50,7 @@ namespace Consultorio.Application.Services.WorkService
                     }
 
                 }
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(86400000, stoppingToken);
             }
         }
     }

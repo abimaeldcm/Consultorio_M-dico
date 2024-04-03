@@ -102,6 +102,12 @@ namespace Consultorio.Web.Controllers
         {
             try
             {
+                var medicoDb = await _medicoService.BuscarPorId(id);
+                if (medicoDb != null)
+                {
+                   await _medicoService.Delete(id);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch
