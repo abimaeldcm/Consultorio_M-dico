@@ -4,7 +4,7 @@ O **Clínica Médica** é um projeto Fullstack desenvolvido para oferecer um sis
 
 Assista ao vídeo abaixo para ver a aplicação em execução.
 
-[Assista ao vídeo para ver a aplicação em execução](https://www.youtube.com/watch?v=T-OAnHipSos)
+[![Texto alternativo](https://img.youtube.com/vi/T-OAnHipSos/0.jpg)](https://www.youtube.com/watch?v=T-OAnHipSos)
 
 ## Funcionalidades Implementadas
 
